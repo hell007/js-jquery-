@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>html5+css3</title>
+<style type="text/css">
+body,h1,h2,h3,h4,h5,h6,div,p,a,img,ul,ol,li,dl,dt,dd,span,tr,th,td{margin:0;padding:0;list-style:none;border:0;font-weight:normal;font-style:normal}
+table{border-collapse:collapse;border-spacing:0}
+a:link,a:visited{text-decoration:none}
+a:hover{text-decoration:none}
+a,a:focus{outline-style:none}
+input,select,textarea{outline-style:none}
+.fl{float:left}
+.fr{float:right}
+.hide{display:none}
+.clearfix{clear:both}
+.ac{text-align:center}
+.al{text-align:left}
+.ar{text-align:right}
+.cursor{cursor:pointer}
+body{font-size:12px;font-family:"宋体";background:#f3f3f3;padding: 20px 100px 500px;}
+h2{clear:both;font-weight:bold;font-size:30px;}
+h3{clear:both;height:40px;padding-top:20px;line-height:40px;}
+</style>
+<style>
+div{width:100px;height:100px;border:1px solid #000;background:#fafafa;}
+/***/
+.c1{position:relative;width:82px;height:32px;}
+.c1:before{display:inline-block;position:absolute;left:0;top:0;width:32px;height:32px;border-radius:4px;background:green;content:"";transform:rotate(45deg);}
+.c1:after{display:inline-block;position:absolute;left:15px;top:-5px;width:60px;height:42px;border-radius:4px;background:green;content:"";}
+.c1 i{display:inline-block;position:absolute;left:4px;top:10px;z-index2;width:10px;height:10px;border-radius:5px;background:#fff;}
+
+/***/
+.c2{width:30px;height:30px;background:red;transform:translate(20px,-20px);}
+
+/***/
+.c3{width:30px;height:30px;background:red;transform:scale(0.2,0.8);}
+
+/***/
+.c4{width:30px;height:30px;background:red;transform:skew(10deg,20deg);}
+
+/***/
+.c5{width:30px;height:30px;background:red;transform:matrix(1,2,3,4,5,6);}
+
+/***/
+.t1{width:40px;height:40px;background:red;}
+</style>
+</head>
+<body>
+<h3>变换1=rotate(0deg)旋转</h3>
+<p class="c1"><i></i></p>
+
+<h3>变换2=translate(xpx,ypx)平移</h3>
+<div><p class="c2"></p></div>
+
+<h3>变换3=scale(x,y)缩放</h3>
+<div><p class="c3"></p></div>
+
+<h3>变换4=scale(xdeg,ydeg)斜切</h3>
+<div><p class="c4"></p></div>
+
+<h3>变换5=matrix(a,b,c,d,e,f)变换矩阵</h3>
+<div><p class="c5"></p></div>
+
+<br /><br /><br /><br />
+
+
+<style>
+/*
+transition: attr time  funciton dtime;
+<' transition-property '>：
+检索或设置对象中的参与过渡的属性
+<' transition-duration '>：
+检索或设置对象过渡的持续时间
+<' transition-timing-function '>：
+检索或设置对象中过渡的动画类型
+<' transition-delay '>：
+检索或设置对象延迟过渡的时间
+*/
+
+/*
+linear：
+线性过渡。等同于贝塞尔曲线(0.0, 0.0, 1.0, 1.0)
+ease：
+平滑过渡。等同于贝塞尔曲线(0.25, 0.1, 0.25, 1.0)
+ease-in：
+由慢到快。等同于贝塞尔曲线(0.42, 0, 1.0, 1.0)
+ease-out：
+由快到慢。等同于贝塞尔曲线(0, 0, 0.58, 1.0)
+ease-in-out：
+由慢到快再到慢。等同于贝塞尔曲线(0.42, 0, 0.58, 1.0)
+*/
+
+/***/
+.t1{width:100px;height:100px;background:red;transition:background-color .5s ease-in .1s;}
+.t1:hover{background-color:green;}
+
+/****/
+.t2{width:100px;height:100px;border:10px solid black;
+transition-property:border;
+transition-duration:.3s;
+transition-timing-function:ease-in;
+transition-delay:.1s;
+}
+.t2:hover{border:5px solid green;}
+
+/***/
+.t3{width:120px;height:120px;border:2px solid red;background:#999;transition:all .5s ease-in .1s;}
+.t3:hover{border:2px solid green;background:#c39;}
+</style>
+
+<h3>过渡1=transition:attr duration timing-function delay</h3>
+<p class="t1"></p>
+
+<h3>过渡2=transition:拆分写</h3>
+<p class="t2"></p>
+
+<h3>过渡3=transition:all duration timing-function delay</h3>
+<p class="t3"></p>
+
+
+
+
+<br /><br /><br /><br />
+
+
+<style type="text/css">
+/*
+{animation:name duration timing-function delay(0s) iteration-count(1) direction(normal) fill-mode(none) play-state(running); }
+
+{animation:name duration timing-function direction(normal); }
+
+<' animation-name '>：
+检索或设置对象所应用的动画名称
+<' animation-duration '>：
+检索或设置对象动画的持续时间
+<' animation-timing-function '>：
+检索或设置对象动画的过渡类型
+<' animation-delay '>：
+检索或设置对象动画延迟的时间
+<' animation-iteration-count '>：
+检索或设置对象动画的循环次数
+<' animation-direction '>：
+检索或设置对象动画在循环中是否反向运动
+<' animation-fill-mode '>：
+检索或设置对象动画时间之外的状态
+<' animation-play-state '>：
+检索或设置对象动画的状态。w3c正考虑是否将该属性移除，因为动画的状态可以通过其它的方式实现，比如重设样式
+*/
+
+.a1{
+    -webkit-animation:animations 2s ease-out forwards;
+    -moz-animation:animations 2s ease-out forwards;
+    animation:animations 2s ease-out forwards;
+}
+@-webkit-keyframes animations{
+    0%{-webkit-transform:translate(0);opacity:0;}
+    50%{-webkit-transform:translate(30px);opacity:1;}
+    70%{-webkit-transform:translate(35px);opacity:1;}
+    100%{-webkit-transform:translate(60px);opacity:0;}
+}
+@-moz-keyframes animations{
+    0%{-moz-transform:translate(0);opacity:0;}
+    50%{-moz-transform:translate(30px);opacity:1;}
+    70%{-moz-transform:translate(35px);opacity:1;}
+    100%{-moz-transform:translate(60px);opacity:0;}
+}
+@keyframes animations{
+    0%{transform:translate(0);opacity:0;}
+    50%{transform:translate(30px);opacity:1;}
+    70%{transform:translate(35px);opacity:1;}
+    100%{transform:translate(60px);opacity:0;}
+}
+</style>
+
+<h3>动画</h3>
+<span class="a1">CSS3 Animations</span>
+
+</body>
+</html>
