@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<style>
+*{margin:0;padding:0}
+.select{width:300px;height:40px;cursor:pointer;position:absolute;top:0;left:0;z-index:999}
+.tran{width:100%;border:1px solid #333;min-height:40px;position:relative;background:#eee}
+.tran::after{display:block;content:"";height:0;visibility:hidden;clear:both}
+.select span.value{display:block;float:left;width:90%;height:40px;text-indent:15px;line-height:40px;position:absolute;top:0;left:0;z-index:20;color:#303;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.square{display:block;float:right;width:10%;height:40px;position:relative}
+.square tt{display:block;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:10px solid #303;position:absolute;top:15px;left:0;right:0;bottom:0;margin:0 auto}
+.square tt.rot0{-webkit-transform:rotate(0);-moz-transform:rotate(0);-o-transform:rotate(0);-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-o-transition:all .2s linear}
+.square tt.rot180{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-o-transform:rotate(180deg);-webkit-transition:all .2s linear;-moz-transition:all .2s linear;-o-transition:all .2s linear}
+.selectBox{width:100%;max-height:204px;overflow-y:auto;position:absolute;top:41px;left:0;border:1px solid #333;background:#fff;display:none}
+.selectBox li{list-style:none;height:40px;line-height:40px;padding:0 15px;border-bottom:1px solid #333;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.selectBox li:last-of-type{border-bottom:0 none}
+.selectBox li:hover{background:#eee;color:#303}
+
+.box{width:500px;margin:10px auto}
+.box2{margin:20px 0;min-height:40px;position:relative}
+.btn{display:block;width:120px;height:40px;text-align:center;line-height:40px;border-radius:4px;background:#00b700;color:#fff;cursor:pointer;margin:20px auto}
+.text{margin:10px 0;color:red}
+input{padding:12px 10px;width:480px;border:1px solid #999;outline:0;font-size:16px;color:#00f}
+.box3{width:300px;margin:20px auto}
+.box4{min-height:40px;position:relative}
+.show{width:460px;padding:20px;border:1px solid #333;margin:10px auto;line-height:24px;font-size:14px}
+.getAll{padding:12px 10px;width:480px;min-height:22px;border:1px solid #999;font-size:16px;color:#00f;line-height:30px}
+</style>
+</head>
+<body>
+<div class="box">
+    
+    <div class="box2"></div>
+    <div class="text">点击确定，获取模拟select的value值(getValue方法)：</div>
+    <input class="getValue" type="text" disabled="disabled" placeholder="点击“确定”按钮取值"/>
+    <div class="text">点击确定，获取模拟select的index值(getIndex方法)：</div>
+    <input class="getIndex" type="text" disabled="disabled" placeholder="点击“确定”按钮取值"/>
+    <div class="text">点击确定，获取模拟select的值和index(getAll方法)：</div>
+    <div class="getAll">getAll方法取得的值和index分别显示在这里</div>
+</div>
+<a class="btn">确定</a>
+<div class="box3">
+    <div class="box4" id="box"></div>
+</div>
+<div class="show">
+    模拟的select下拉框,使用的时候只需要实例化 new select() 就可以自动生成select下拉框,内部传入一个Json,有4个属性,分别是：width、title、box、value,都可以缺省, <br/>
+    width：表示设置下拉框的宽度,最小宽度为300px,缺省或者设置宽度小于300px则默认宽度为300px, <br/>
+    title：表示下拉框实例好了之后还未选中时显示的文字或者已选中文字(相当于select功能), <br/>
+    box：表示放入下拉框的父级元素,若缺省,下拉框放入到docuemnt.body里边, <br/>
+    value：表示需要生成的选项(相当于select的option功能), <br/>
+    取值的方法有三种,分别可以取到选中的值、选中值的index,getValue方法是单纯取值,
+    getIndex方法单纯取值对应的index,getAll表示既取到值，又取到对应的index，getAll取出来是一个Json,
+</div>
+<script>
+
+
+    window.onload = function(){
+        var oBtn = document.getElementsByClassName('btn')[0];
+
+
+        // 实例化第一个select下拉框;
+        var sel = new select({
+            width: '500px',
+            title : '无边落木萧萧下，不尽长江滚滚来',
+            box : 'box2',
+            value : ['风急天高猿啸哀，渚清沙白鸟飞回','无边落木萧萧下，不尽长江滚滚来','万里悲秋常作客，百年多病独登台','艰难苦恨繁霜鬓，潦倒新停浊酒杯']
+        });
+
+
+        oBtn.onclick = function(){
+            var value = sel.getValue();
+            var index = sel.getIndex();
+            var all = sel.getAll();
+            console.log(all);
+            document.getElementsByClassName('getValue')[0].value = 'getValue取的值是：'+value;
+            document.getElementsByClassName('getIndex')[0].value = 'getIndex取的index是：'+index;
+            document.getElementsByClassName('getAll')[0].innerHTML = 'getAll取得值是(getAll.value)：'+all.value+'</br>'+'getAll取得值是(getAll.index)：'+all.index;
+        };
+
+
+        // 实例化第二个select下拉框;
+//      var sel2 = new select({
+////            width : '400px',   // width缺省默认为 300px;
+//          title: '输入内容，可以缺省，可以自定义的',  // title缺省默认内容为 ：请选择内容;
+//          box : 'box',  // box缺省默认添加到body上;
+//          value : ['第一项','第二项','第三项','第四项','第五项','第六项','第二项','第三项','第四项','第五项','第六项','第二项','第三项','第四项','第五项','第六项','第二项','第三项','第四项','第五项','第六项']  // value缺省不会生成select下拉框;
+//      });
+
+
+
+
+        // 大部分值都缺省的情况;
+//      var sel3 = new select({
+//          value : ['人生若只如初见','何事秋风悲画扇']
+//      });
+
+
+    };
+
+
+
+
+
+
+
+
+
+
+    function select(Json){
+        this.Json = Json;
+        this.seWidth = this.Json.width || 300+'px';
+        this.seTitle = this.Json.title || '请选择内容';
+        this.seBox = document.getElementById(this.Json.box) || document.getElementsByClassName(this.Json.box)[0] || document.body;
+        this.seValue = this.Json.value || [''];
+        this.oTran = document.createElement('div');
+        this.oSpan = document.createElement('span');
+        this.oUl = document.createElement('ul');
+        this.oI = document.createElement('i');
+        this.oTt = document.createElement('tt');
+        this.oLi = this.oUl.children;
+        this.isOn = null;
+        this.init();
+        this.setValue();
+        this.click();
+    }
+    select.prototype = {
+        init : function(){
+            var self = this;
+            var oDiv = document.createElement('div');
+            oDiv.className = 'select';
+            oDiv.style.width = self.seWidth;
+            oDiv.style.minWidth = 300+'px';
+            self.oTran.className = 'tran';
+            self.oI.className = 'square';
+            self.oTt.className = 'rot0';
+            self.oSpan.className = 'value';
+            self.oSpan.innerHTML = self.seTitle;
+            self.oSpan.setAttribute('value',self.seTitle);
+            self.oSpan.setAttribute('index',null);
+            self.oUl.className = 'selectBox';
+            self.oUl.innerHTML = '';
+            for(var i=0;i<this.seValue.length;i++){
+                if(this.seValue.length==1 && this.seValue[0]=='')
+                    return;
+                self.oUl.innerHTML += '<li value='+self.seValue[i]+' index='+i+'>'+self.seValue[i]+'</li>';
+            }
+            self.oI.appendChild(self.oTt);
+            self.oTran.appendChild(self.oSpan);
+            self.oTran.appendChild(self.oI);
+            oDiv.appendChild(self.oTran);
+            oDiv.appendChild(self.oUl);
+            self.seBox.appendChild(oDiv);
+        },
+        click : function(){
+            var self = this;
+            self.isOn = true;
+            self.oTran.onclick = function(){
+                if(self.isOn){
+                    self.show();
+                }else{
+                    self.hide();
+                }
+            }
+        },
+        show : function(){
+            var self = this;
+            self.oUl.style.display = 'block';
+            self.addClass(self.oTt,'rot180');
+            self.removeClass(self.oTt,'rot0');
+            self.isOn = !self.isOn;
+        },
+        hide : function(){
+            var self = this;
+            self.oUl.style.display = 'none';
+            self.addClass(self.oTt,'rot0');
+            self.removeClass(self.oTt,'rot180');
+            self.isOn = true;
+        },
+        setValue : function(){
+            var self = this;
+            for(var i=0;i<self.oLi.length;i++){
+                self.oLi[i].onclick = (function(k){
+                    return function(){
+                        self.oSpan.innerHTML = self.oLi[k].innerHTML;
+                        self.oSpan.setAttribute('value',self.oSpan.innerHTML);
+                        self.oSpan.setAttribute('index',self.oLi[k].getAttribute('index'));
+                        self.hide();
+                    }
+                })(i)
+            }
+        },
+        getIndex : function(){
+            var self = this;
+            this.setValue();
+            return self.oSpan.getAttribute('index');
+        },
+        getValue : function(){
+            var self = this;
+            this.setValue();
+            return self.oSpan.innerHTML;
+        },
+        getAll : function(){
+            var self = this;
+            this.setValue();
+            var val = {
+                value : self.oSpan.innerHTML,
+                index : self.oSpan.getAttribute('index')
+            };
+//            value = JSON.stringify(value);
+            return val;
+        },
+        addClass : function(obj,name){
+            var classArr = obj.className.split(' ');
+            for(var i=0;i<classArr.length;i++){
+                if(classArr[i]==name)
+                    return
+            }
+            if(obj.className)
+                obj.className += ' '+name;
+            else
+                obj.className = name;
+        },
+        removeClass : function(obj,name){
+            var classArr = obj.className.split(' ');
+            for(var i=classArr.length-1;i>=0;i--){
+                if(classArr[i]==name)
+                    classArr.splice(i,1);
+            }
+            obj.className = classArr.join(' ');
+        }
+
+    };
+</script>
+</body>
+</html>

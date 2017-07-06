@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+*{margin:0;padding:0;border:0;list-style:none;}
+body{padding:200px 0 0 200px;}
+button{margin:20px 0 0 20px;padding:5px 15px;font-size:14px;color:#fff;border-radius:4px;background:#E05158;cursor:pointer;}
+
+/*select css*/
+.select-box{position:relative;min-width:80px;height:20px;cursor:pointer;}
+.select-text{width:100%;height:18px;border:1px solid #E05158;border-radius:3px;background:#fff;}
+.select-text span.select-val{display:block;overflow:hidden;float:left;width:74%;height:18px;padding-left:2%;font-size:12px;color:#303;white-space:nowrap;text-overflow:ellipsis;}
+.select-arrow{display:block;float:right;max-width:24%;width:19px;height:18px;position:relative;background:url(select-bg.png) center center no-repeat;background-size:19px 18px;}
+.select-list{display:none;overflow-y:auto;position:absolute;top:-10px;left:-11px;width:100%;max-height:120px;padding:3px 0;border-radius:4px;border:1px solid #e5e5e5;box-shadow:0px 2px 4px #ddd;background:#fff;}
+.select-list li{height:20px;line-height:20px;padding:0 8px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.select-list li i{visibility:hidden;font-size:12px;margin-right:2px;}
+.select-list li:last-of-type{border-bottom:0;}
+.select-list li:hover{background:#E05158;color:#fff;}
+.select-list li.active i{visibility:visible;}
+</style>
+</head>
+<body>
+	<div class="select-wrap" id="select"></div>
+	
+	<button>获取</button>
+</body>
+<script src="../library/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="m_selectView.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	    
+	// 实例化第一个select下拉框;
+    var sel = new SelectView({
+        width:'100px',
+        title:'按默认', //默认选中 按默认
+        index:0,       //按默选中  list[0] 0
+        list:['按默认','按时间'],
+        container:'select',
+        action:function(data){
+        		console.log(data);
+        }
+        
+    });
+    
+    
+    
+    
+    $("button").click(function(){
+    		console.log("====== 获取下拉选中的值 ====");
+	    	console.log("index:"+ sel.getIndex());
+	    console.log("value:"+ sel.getValue());
+	    console.log("json:"+ sel.getAll().index +"/"+ sel.getAll().value);
+    })
+})
+
+</script>
+</html>
