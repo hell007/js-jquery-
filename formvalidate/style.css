@@ -1,0 +1,15 @@
+body{background:#fff;font-size:12px;}
+*{margin:0;padding:0;}
+.wrap{position:relative;}
+/*address_form*/
+.address_form{margin:100px auto 0;width:250px;overflow:hidden;min-height:326px;padding:10px 0;border:2px solid #a6a6a6;background:#fff;}
+.address_form_list{padding:10px 17px;}
+.address_form_list .text{height:24px;width:200px;margin-bottom:10px;padding-left:8px;border:1px solid #D9D6D6;border-radius:3px;}
+.address_form_list .text:focus{border:1px solid #fca1a4;background:#fee6e7;}
+.select_box{height:26px;}
+.select_box select{width:100px;height:24px;border:1px solid #D9D6D6;background:#fff;}
+.address_form_list textarea{width:190px;padding:10px;height:40px;margin-bottom:10px;border:1px solid #D9D6D6;overflow:hidden;resize:none;}
+.select_box, .radio_box, .btn_box{width:210px;margin-bottom:10px;}
+.radio_box label, .radio_box label input{margin-right:6px;cursor:pointer;}
+.btn_box span{display:inline-block;width:70px;height:26px;font-size:14px;text-align:center;line-height:26px;cursor:pointer;}
+.btn_box span.save{background:#f11980;border-radius:3px;color:#fff;}

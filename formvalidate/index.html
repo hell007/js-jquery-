@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title></title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="tip-yellowsimple/tip-yellowsimple.css"/>
+</head>
+<body>
+<div class="wrap">
+	
+	<!--新增地址空模板-->
+	<form id="formmodify" method="post" action="">
+	<div class="address_form" id="address_form_new">
+		<div class="address_form_list">
+			<input class="text" type="text" placeholder="价格" title="可填写" mayFil validatetype="Money" >
+			<input class="text" type="text" placeholder="可填写测试" title="可填写" mayFil validatetype="Nospecial" >
+			<input class="text" type="text" placeholder="天数" title="请输入天数" isRequired validatetype="Day">
+			<input class="text" type="text" placeholder="请输入设备名称" title="请输入设备名称" isRequired validatetype="Nospecial">
+			<input class="text" type="text" placeholder="收货人姓名" title="请输入收货人姓名" isRequired validatetype="String"  >
+			<input class="text" type="text" placeholder="手机号码" title="请输入手机号码" isRequired validatetype="Phone">
+			<input class="text" type="text" placeholder="备用联系电话（固话/手机）" title="请输入备用联系电话" isRequired validatetype="Tell">
+			<div class="select_box">
+				<select name="" class="province fl" title="请选择省/直辖市" isRequired >
+					<option value="" disabled selected>省/直辖市</option>
+					<option value="23">云南</option>
+				</select>
+			</div>
+			<textarea name="" class="text" placeholder="详细地址" title="请输入详细地址" isRequired validatetype="String"></textarea>
+			<div class="radio_box">
+				<label><input type="radio" name="radio" value="" />家庭地址</label>
+				<label><input type="radio" name="radio" value="" />工作地址</label>
+				<label><input type="radio" name="radio" value="" />其他</label>
+			</div>
+			<div class="btn_box">
+				<span class="save jsSave">保存</span>
+				<span class="cancle jsCancle">取消</span>
+			</div>
+		</div>
+	</div>
+	</form>
+	
+	
+	
+
+</div>
+<script src="../library/jquery-1.12.0.js" type="text/javascript" charset="utf-8"></script>	
+<script src="jquery.poshytip.js" type="text/javascript" charset="utf-8"></script>
+<script src="form.validate.js" type="text/javascript" charset="utf-8"></script>	
+<script type="text/javascript">
+$(function(){
+	var formValidate = new FormValidate({tag:"title",container:'#formmodify'});
+	//blur验证
+	formValidate.blurChecked();
+	//表单体检验证
+	$(".jsSave").click(function(){
+		if(formValidate.mayFilChecked() && formValidate.checked()  ){
+			//提交操作
+			alert("提交表单！");
+		}
+	});
+})
+</script>
+</body>
+</html>
