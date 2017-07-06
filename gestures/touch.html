@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="renderer" content="webkit">
+<title></title>
+<style type="text/css">
+body{font-size:12px;}
+</style>
+</head>
+<body style="height:2000px;">
+	<h2>1111</h2>
+	<h2 style="margin-top:500px;">22222</h2>
+</body>
+<script src="../library/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+// 绑定触摸
+$('body').on('touchstart',function(e){
+    fnTouches(e);
+    fnTouchstart(e, self);
+});
+$('body').on('touchmove',function(e){
+    fnTouches(e, self);
+    fnTouchmove(e, self);
+});
+$('body').on('touchend',function(){
+    fnTouchend(self);
+});
+        
+	// touches
+    function fnTouches(e){
+        if(!e.touches){
+            e.touches = e.originalEvent.touches;
+        }
+    }
+
+    // touchstart
+    function fnTouchstart(e, self){
+        self._startY = e.touches[0].pageY;
+        self._startX = e.touches[0].pageX;
+        // 记住触摸时的scrolltop值
+        self.touchScrollTop = self.$('body').scrollTop();
+        
+        console.log("起始点Y：" + self._startY);
+        console.log("touchScrollTop:" + self.touchScrollTop);
+    }
+
+    // touchmove
+    function fnTouchmove(e, self){
+        self._curY = e.touches[0].pageY;
+        self._moveY = self._curY - self._startY;
+        self._curX = e.touches[0].pageX;
+        self._moveX = self._curX - self._startX;
+
+        if(self._moveY > 10){
+            self.direction = 'down';
+        }else if(self._moveY < -10){
+            self.direction = 'up';
+        }else if(self._moveX > 
+        10){
+        		self.direction = 'right';
+        }else if(self._moveX < -10){
+        		self.direction = 'left';
+        }
+		
+        var _absMoveY = Math.abs(self._moveY);
+        var _absMoveX = Math.abs(self._moveX);
+		console.log("direction：" + self.direction);
+		console.log("moveY：" + _absMoveY);
+		console.log("moveX：" + _absMoveX);
+    }
+
+    // touchend
+    function fnTouchend(self){
+        var _absMoveY = Math.abs(self._moveY);
+         var _absMoveX = Math.abs(self._moveX);
+		console.log("_absMoveY：" + _absMoveY);
+		console.log("_absMoveX：" + _absMoveX);
+    }
+</script>
+</html>
