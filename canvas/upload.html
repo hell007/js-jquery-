@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	<p>要使用的图像：</p>
+	<img id="tulip" width="50" height="50"  src="http://www.kunyujie.com/static/favicon.ico" alt="The Tulip" />
+
+	<p>画布：</p>
+	<canvas id="myCanvas" width="500" height="300" style="border:1px solid #d3d3d3;background:#ffffff;">
+	Your browser does not support the HTML5 canvas tag.
+	</canvas>
+
+
+<script type="text/javascript">
+   
+//  function preImage(url,callback){  
+//	     var img = new Image(); //创建一个Image对象，实现图片的预下载  
+//	     img.src = url;    
+//	     if (img.complete) return callback.call(img); // 如果图片已经存在于浏览器缓存，直接调用回调函数  
+//	     img.onload = function () { //图片下载完毕时异步调用callback函数。  
+//	         callback.call(img);//将回调函数的this替换为Image对象  
+//	     };  
+//	}
+//  
+//  var imageCanvas = document.getElementById("myCanvas");
+//	var imageCtx = imageCanvas.getContext("2d");
+//	preImage("http://www.kunyujie.com/static/favicon.ico",function(){  
+//      imageCtx.drawImage(this, 0, 0, 32, 32);  
+//  });
+	 /*绘图*/
+
+var c=document.getElementById("myCanvas");
+var ctx=c.getContext("2d");
+var img=document.getElementById("tulip");
+ctx.drawImage(img,10,10);
+
+	
+    
+	/**
+		 * 图片上传
+		 * @param {Object} imgID
+		 * @param {Object} imgPath
+		 * @param {Object} width
+		 * @param {Object} height
+		 */
+//		uploadImage: function(imgID,imgPath,width,height) {
+//			var self = this,
+//				image = new Image();
+//			imgID.src = imgPath;
+//			image.src = imgPath;
+//			image.onload = function() {
+//				var imgData = self.getBase64Image(image,width,height);
+//				/*在这里调用上传接口*/
+//				mui.ajax("http://localhost:8080/myself/test/bas64ImageUpload/", {
+//					data: {
+//						name: 'admin',
+//						passwd: '21232f297a57a5a743894a0e4a801fc3',
+//						imgdata: imgData.toString() //需要将base64图像流装换为string
+//					},
+//					dataType: 'json',
+//					type: 'post',
+//					timeout: 10000,
+//					success: function(data) {
+//						console.log(data.success)
+//						console.log(data.path) 
+//						mui.toast(data.message);
+//					},
+//					error: function(xhr, type, errorThrown) {
+//						mui.toast('网络异常，请稍后再试！');
+//					}
+//				});
+//			}
+//		},
+//		/**
+//		 * 将图片压缩转成base64
+//		 * @param {Object} img
+//		 */
+//		getBase64Image: function(img,w,h) {
+//			var canvas = document.createElement("canvas"),
+//				width = img.width,
+//				height = img.height;
+//				w = w || 100;
+//				h = h || 100;
+//			// calculate the width and height, constraining the proportions
+//			if (width > height) {
+//				if (width > w) {
+//					height = Math.round(height *= h / width);
+//					width = w;
+//				}
+//			} else {
+//				if (height > h) {
+//					width = Math.round(width *= w / height);
+//					height = h;
+//				}
+//			}
+//			canvas.width = width;   /*设置新的图片的宽度*/
+//			canvas.height = height; /*设置新的图片的长度*/
+//			var ctx = canvas.getContext("2d");
+//			ctx.drawImage(img, 0, 0, width, height); /*绘图*/
+//			var dataURL = canvas.toDataURL("image/png", 0.8);
+//			return dataURL.replace("data:image/png;base64,", "");
+//		}
+</script>
+</body>
+</html>
