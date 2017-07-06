@@ -1,0 +1,254 @@
+@charset "utf-8";
+/*=============初始化样式
+===================================*/
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #666;
+}
+
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video {
+    outline: 0;
+    border: 0;
+    vertical-align: baseline;
+    font: inherit;
+    font-size: 100%;
+    word-wrap: break-word;
+}
+
+button,input,select,textarea {
+    outline: 0;
+    resize: none;
+    -webkit-appearance: none;
+}
+
+body,button,input,select,textarea {
+    font-size: 14px;
+    font-family: Segoe UI,Lucida Grande,Helvetica,Arial,Microsoft YaHei,FreeSans,Arimo,Droid Sans,wenquanyi micro hei,Hiragino Sans GB,Hiragino Sans GB W3,sans-serif;
+}
+
+body {
+    width: 100%;
+    font-size: 18px;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    background: #EEEEEE;
+    font-family: "微软雅黑",Helvetica,sans-serif;
+    margin: auto;
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+    display: block;
+}
+
+li,ol,ul {
+    list-style: none;
+}
+
+blockquote,q {
+    quotes: none;
+}
+
+blockquote:after,blockquote:before,q:after,q:before {
+    content: '';
+}
+
+strong {
+    font-weight: 700;
+}
+
+p {
+    color: #666;
+    line-height: 1em;
+    word-wrap: break-word;
+}
+
+em {
+    font-style: normal;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img {
+    border: none;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #d70000;
+}
+
+.clearfix:after,.clearfix:before,.container:after,.container:before,.modal-footer:after,.modal-footer:before,.nav:after,.nav:before,.navbar-collapse:after,.navbar-collapse:before,.navbar-header:after,.navbar-header:before,.navbar:after,.navbar:before,.pager:after,.pager:before,.panel-body:after,.panel-body:before,.row:after,.row:before {
+    display: table;
+    content: " ";
+}
+
+.clearfix:after,.container:after,.modal-footer:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after,.pager:after,.panel-body:after,.row:after {
+    clear: both;
+}
+
+
+/*nav*/
+.nav{
+    width:100%;
+    max-width: 768px;
+    height:1.6rem;
+    background:#ffffff;
+    position:fixed;
+    top:0;
+    left:0;
+    right: 0;
+    margin: auto;
+    z-index:2;
+    overflow: hidden;
+}
+
+.nav-bg-dw{
+    width:100%;
+    height:1.6rem;
+    overflow: hidden;
+}
+
+.logo > img{
+    width:4.27rem;
+    height:1.6rem;
+}
+
+.logo{
+    width: 35%;
+    height:1.6rem;
+    float:left;
+    display:block;
+    background-color: #d70000;
+}
+
+.logo > img {
+    display: block;
+    width: 100%;
+}
+
+.nav-list{
+    width: 65%;
+    float:left;
+    height: 1.6rem;
+    overflow: hidden;
+    background: url("../../images/base/nav-back.jpg");
+    background-size: 100% 100% ;
+}
+
+.nav-list > li{
+    float:left;
+    height: 1.6rem;
+}
+
+.nav-list > li > a{
+    line-height:1.6rem;
+    margin-left:0.7rem;
+    font-size:0.58rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/*footer*/
+.footer {
+    width: 100%;
+    background: #dddddd;
+    padding: 0.6rem 0 0.6rem;
+}
+
+.footer > .footer-logo {
+    display: block;
+    width: 40%;
+    margin: auto;
+}
+
+.footer > .footer-logo > img {
+    display: block;
+    width: 100%;
+}
+
+.footer > ul {
+    width: 100%;
+    text-align: center;
+    margin: 0.3rem 0;
+}
+.footer > ul > li {
+    display: inline-block;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    text-align: center;
+    padding: 0 0.1rem;
+}
+
+.footer > ul > li > a {
+    font-size: 0.5rem;
+}
+
+.footer > ul > li > a.current {
+    color: #0880f1;
+}
+
+.footer  > p {
+    width: 100%;
+    text-align: center;
+    font-size: 0.5rem;
+}
+
+.footer  > p > a {
+
+}
+
+
+/*right list bnt*/
+.right-bnt-wap {
+    width: 2rem;
+    position: fixed;
+    top:78%;
+    right: 0.2rem;
+}
+
+.right-bnt-wap > a {
+    display: block;
+    width: 100%;
+    height: 2rem;
+    background: url("../../images/base/lianxi.png");
+    background-size: 100% 100%;
+    margin-top: 0.1rem;
+}
+
+.right-bnt-wap > a.return-top {
+    background: url("../../images/base/top.png");
+    background-size: 100% 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
