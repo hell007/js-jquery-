@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style type="text/css">
+*{margin:0;padding:0;border:0;list-style:none;}
+body{text-align: center;}
+.page{overflow:hidden;padding:20px 0;}
+.page a{display:inline-block;height:22px;line-height:22px;border:1px solid #dbdbdb;padding:0px 7px;margin-right:2px;background:#FCFBEF;font-size:12px;cursor:pointer;}
+.page a.actived{background:#E05158;color:#fff;}
+
+</style>
+</head>
+<body>
+	<div id="page" class="page"></div>
+</body>
+<script src="../library/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="m_pageView.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	var page = new Page({
+	    size: 10,    //总页数
+	    current: 1,  //当前页
+	    showSize: 5, //显示页数
+	    container: 'page', //父容器id
+	    itemType: 'a', //分页dom类型
+	    href: '',//分页锚点
+	    action: function(current) {
+	        console.log('page:' + current);
+	    }
+	});
+</script>
+</html>
