@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>gestures</title>
+<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+<script src="jquery-1.9.js"></script>
+<script src="jgestures.js"></script>
+<style>
+    #swipeme {
+        border: 3px dashed orange;
+        line-height: 300px;
+        height: 300px;
+        text-align: center;
+        font-size: 3em;
+        width: 100%;
+    }
+</style>
+</head>
+<body>
+<div id="swipeme">
+    Touch me :)
+</div>
+
+<script>
+$('#swipeme').bind('swipeup',function(){
+	console.log('swipeup');
+});
+</script>
+</body>
+</html>
