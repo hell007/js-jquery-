@@ -1,5 +1,5 @@
 // JavaScript Document
-var Index = function(){
+var Index = (function(){
 	
 	var setBannerAnimation = function(id){
 		var index = 0,picTimer,
@@ -75,7 +75,7 @@ var Index = function(){
 			setIndexAssortShow();
 		}
 	}
-}();
+})();
 
 
 
