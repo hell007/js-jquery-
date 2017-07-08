@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AMD规范</title>
+<link href="css/base.css" />
+</head>
+<body>
+	<h2>amd规范调用遮罩层</h2>
+	
+	<code>
+	<p>require.js 插件 https://github.com/requirejs/requirejs/wiki/Plugins</p>
+	<p>gulp-requirejs-optimize的使用: https://github.com/jlouns/gulp-requirejs-optimize</p>
+	</code>
+	
+	<h2>amd underscore.js的使用</h2>
+	
+	<div id="demo_underscore">替换的内容</div>
+	
+	<h2>amd jquery插件的使用</h2>
+	
+	<div id="container" class="container">查看控制台</div>
+	
+<!--模板-->	
+<script type="text/template" id="tpl">
+<% _.each(list, function(v, i){ %>
+	<% if(i == 0){ %>
+	<div style="font-size:20px;"><%=v.title%></div>
+	<% } else { %>
+	<div><%=v.title%></div>
+	<% } %>
+<% }) %>
+</script>
+	
+	
+<!-- 引入require.js  使用data-main指定主模块 -->
+<script type="text/javascript" src="js/config.js"></script>
+<script src="js/lib/require.js" data-main="js/mod/main.js"></script>
+</body>
+</html>

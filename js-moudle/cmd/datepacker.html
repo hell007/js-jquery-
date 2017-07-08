@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<!--
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<meta http-equiv="refresh" content="100">		
+-->
+<title>datepacker</title>
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/fonts/iconfont.css" />
+
+<!--需要的css支持-->
+<link rel="stylesheet" href="css/lCalendar.css">
+<style>
+.calendar_box input{width: 90%;height: 40px;font-size: 1em;border: 1px solid #19b5ee;border-radius: 5px;margin: 20px 5% 0 5%;padding: 5px;}
+</style>
+</head>
+<body>
+<header>
+	<span>城市</span>
+	<h2>DemoUI</h2>
+	<span><em class="h_menu_toggle_btn"><i class="icon iconfont">&#xe616;</i></em></span>
+</header>
+<section class="scroll_view">
+	<div class="calendar_box">
+        <input id="calendar_item1" type="text" readonly="" name="input_date" placeholder="日期选择特效" data-lcalendar="2015-01-11,2020-05-31" />
+    </div>
+    <div class="calendar_box">
+        <input id="calendar_item2" type="text" readonly="" name="input_date" placeholder="日期和时间选择特效" data-lcalendar="2010-01-11,2017-05-31" />
+    </div>
+    <div class="calendar_box">
+        <input id="calendar_item3" type="text" readonly="" name="input_date" placeholder="时间选择特效" />
+    </div>
+    
+    <div class="calendar_box">
+        <input id="calendar_item4" type="text" readonly="" name="input_date" placeholder="开始时间" data-lcalendar="2010-01-11,2017-05-31" />
+    </div>
+    <div class="calendar_box">
+        <input id="calendar_item5" type="text" readonly="" name="input_date" placeholder="结束时间" data-lcalendar="2010-01-11,2017-05-31" />
+    </div>
+    
+    
+</section>
+
+<section id="menuBar"></section>
+</body>
+<script type="text/javascript" src="js/init.min.js?ver=2.52344"></script> 
+<script type="text/javascript" src="js/app/datepacker.js"></script>
+</html>

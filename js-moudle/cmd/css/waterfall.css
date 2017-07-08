@@ -1,0 +1,38 @@
+
+
+/* style for waterfall grid */
+.wf_container {
+    margin: 0 auto;
+}
+.wf_container:before,.wf_container:after {
+    content: '';
+    display: table;
+}
+.wf_container:after {
+    clear: both;
+}
+.wf_box {
+    margin: 10px;
+}
+.wf_box img { 
+    display: block;
+    width: 100%;
+}
+.wf_box .content {
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    padding: 5px 8px;
+}
+.wf_column {
+    float: left;
+}
+
+@media screen and (min-width: 768px) {
+    .wf_container { width: 750px; }
+}
+@media screen  and (min-width: 992px) {
+    .wf_container { width: 970px; }
+}
+@media screen and (min-width: 1200px) {
+    .wf_container { width: 1170px; }
+}

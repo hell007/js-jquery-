@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>图片懒加载</title>
+<style type="text/css">
+.divContainer{padding:15px;width:512px;height:384px;box-shadow:0 1px 3px rgba(34,25,25,0.4);-moz-box-shadow:0 1px 3px rgba(34,25,25,0.4);-webkit-box-shadow:0 1px 3px rgba(34,25,25,0.4);-webkit-transition:top 1s ease, left 1s ease;-moz-transition:top 1s ease, left 1s ease;-o-transition:top 1s ease, left 1s ease;-ms-transition:top 1s ease, left 1s ease;}
+.ploading{background-color:#ccc;background:url(images/loding.gif) no-repeat center;}
+img{width:512px;height:384px;}
+</style>
+</head>
+<body>
+<div class="divContainer"><img name="images/pic7.jpg" class="ploading pic" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic9.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic7.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic9.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic7.jpg" class="ploading pic" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic9.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic7.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+<div class="divContainer"><img name="images/pic9.jpg" class="ploading" data-loading="tp_lazy_loader_img" /></div>
+</body>
+
+<script type="text/javascript" src="js/init.min.js?ver=2.52344"></script> 
+<script type="text/javascript" src="js/app/imgload.js"></script>
+</html>
