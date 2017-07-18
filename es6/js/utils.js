@@ -4,9 +4,7 @@
 ! function() {
 
 	function Utils(cfg) {
-		this.config = {
-			cfg
-		};
+		this.config = {};
 		this.config = $.extend(this.config, cfg);
 		return this;
 	}
