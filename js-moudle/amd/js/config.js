@@ -2,8 +2,8 @@ var requirejs = {
     //baseUrl: "js",
 	paths: {
 	    "jquery": "../lib/jquery-2.1.4",
-	    "art-template': '../lib/template-web",
-	    "juicer': '../lib/juicer-min",
+	    "art-template": "../lib/template-web",
+	    "juicer": "../lib/juicer-min",
 	    "underscore": "../lib/underscore",
 	    "app": "../lib/app",
 	    "utils": "../lib/utils",
