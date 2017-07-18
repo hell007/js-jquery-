@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>juicer</title>
+<link rel="stylesheet" href="css/base.css" />
+</head>
+<body>
+
+<div id="list" class="container">list页面</div>
+
+<div id="content"></div>
+
+<!--juicer模板-->
+<script id="tpl" type="text/template">
+<h2>模板解析</h2>
+
+<h1>${title}</h1>
+<p>${time}</p>
+
+<h2>注册/注销自定义函数（对象）</h2>
+<p>${time2|formatDate}</p>
+<p>${date|formatTimestamp}</p>
+
+<ul>
+{@if isSuccess}	
+	{@each list as v,index}
+		<li>索引 ${+index+1} : ${v}   字符串：${index+1}</li>
+	{@/each}
+{@/if}
+</ul>
+
+</script>
+
+<!-- 引入require.js  使用data-main指定主模块 -->
+<script type="text/javascript" src="js/config.js"></script>
+<script src="js/lib/require.js" data-main="js/page/list.js"></script>
+</body>
+</html>
