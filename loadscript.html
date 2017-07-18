@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>js性能优化</title>
+</head>
+<body>
+<!--<h2>js性能优化-加载顺序测试</h2>-->
+
+
+<script type="text/javascript">
+//function loadScript(url, callback){
+//  var script = document.createElement ("script")
+//  script.type = "text/javascript";
+//  if (script.readyState){ //IE
+//      script.onreadystatechange = function(){
+//          if (script.readyState == "loaded" || script.readyState == "complete"){
+//              script.onreadystatechange = null;
+//              if(typeof callback ==='function') callback();
+//          }
+//      };
+//  } else { //Others
+//      script.onload = function(){
+//          if(typeof callback ==='function') callback();
+//      };
+//  }
+//  script.src = url;
+//  document.getElementsByTagName("body")[0].appendChild(script);
+//}
+
+//loadScript("alert1.js", function(){
+//  loadScript("alert2.js", function(){
+//      loadScript("alert3.js", function(){
+//          alert("All files are loaded!");
+//      });
+//  });
+//});
+
+/**
+ * 动态加载
+ * @param {Number} n
+ */
+function handleLoadScript(n){
+    var script = document.createElement ("script");
+    script.type = "text/javascript";	
+    if(n>scripts.length-1) return;
+    if (script.readyState){ //IE
+        script.onreadystatechange = function(){
+            if (script.readyState == "loaded" || script.readyState == "complete"){
+                script.onreadystatechange = null;
+                //if(typeof callback ==='function') callback();
+                return handleLoadScript(n+1);
+            }
+        };
+    } else { //Others
+        script.onload = function(){
+            //if(typeof callback ==='function') callback();
+            return handleLoadScript(n+1);
+        };
+    }
+    script.src = scripts[n];
+    document.getElementsByTagName("body")[0].appendChild(script);
+}
+
+//调用
+var scripts = [
+"http://img01.netvan.cn/mall/userfiles/resfiles/resources/frame/js/jquery.min.1.8.3.js",
+"http://img01.netvan.cn/mall/userfiles/resfiles/resources/frame/js/frame.js",
+"http://img01.netvan.cn/mall/userfiles/resfiles/resources/mallweb/v1611/js/mallweb.public.js"
+];
+handleLoadScript(0);
+/*
+ 按顺序加载，
+ 如果某一个js请求失败，后续的将不会在加载
+ */
+</script>
+</body>
+</html>
