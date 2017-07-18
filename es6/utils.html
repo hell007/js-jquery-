@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>工具类</title>
+</head>
+<body>
+console	
+<script src="jquery-1.12.0.js"></script>
+<script src="utils.js"></script>
+<script type="text/javascript">
+	
+	//创建实例
+	var utils = new Utils();
+	
+	var str = " 123dd45 ";
+	//1.替换字符串
+	var s1 = utils.repalce("123dd45","dd","aa");
+	console.log(s1);
+	
+	//2.去除字符串空格
+	console.log(str.length);
+	console.log("trim:"+ utils.trim(str).length);
+	console.log("ltrim:"+ utils.ltrim(str).length);
+	console.log("rtrim:"+ utils.rtrim(str).length);
+	
+	//3.过滤字符串里的html标签
+	var str2 ="abv<a href='#'>点击me</a>dddd";
+	console.log("stripTags:"+ utils.stripTags(str2));
+	
+	//4.验证为空
+	var str3 ="";
+	console.log("空:"+ utils.isEmpty(str3));
+	console.log("空:"+ utils.isNotEmpty(str3));
+	
+	//5.数字
+	var str4="3";
+	var n = 3.2;
+	
+	console.log("数字："+ utils.isNumber(str4));
+	console.log("n数字："+ utils.isNumber(n));
+	
+	console.log("int："+ utils.isInt(n));
+	
+	//6.字母
+	var abc ="Aabc";
+	var str5 = "中国字";
+	console.log("英文："+ utils.isLetter(abc));
+	console.log("大写英文："+ utils.isUpper("ACDd"));
+	console.log("中文："+ utils.isChina(str5));
+	console.log("html5 localStorage:"+ utils.isSupportLocalStorage());
+	console.log("特殊字符："+ utils.isContainSpecial("副%书记地方"));
+	
+	//7.网址
+	console.log("网址："+ utils.isUrl("http://www.345834573.com"));
+	console.log("邮箱："+ utils.isEmail("103333@qq.com"));
+	console.log("手机号码："+ utils.isMobile("15588888888"));
+	console.log("座机号码："+ utils.isTell("0871-3232323"));
+	console.log("phone："+ utils.isPhone("0871-3232323"));
+	
+	//8.数组  函数
+	var arr =["a","b"];
+	console.log("数组："+ utils.isArray(arr))
+	console.log("function："+ utils.isFun(function(){}))
+	
+	//9.help
+	var words = "云南移动和淘手机网，正品低价，品质保障！";
+	console.log("words："+ utils.getLength(words))
+	console.log("words："+ utils.subStrCharacter(words,28))
+	
+	
+</script>
+</body>
+</html>
