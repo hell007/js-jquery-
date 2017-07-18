@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>art-tempalte</title>
+<link rel="stylesheet" href="css/base.css" />
+</head>
+<body>
+
+<div id="product" class="container">product页面</div>
+
+<p>注意：支持ie9+,ie8需要补丁</p>
+
+
+<div id="content"></div>
+
+<!--模板-->
+<script id="test" type="text/html">
+<h2>模板解析</h2>	
+{{if isSuccess}}
+<h1>{{title}}</h1>
+<ul>
+    {{each list value i}}
+        <li>索引 {{i + 1}} ：{{value}}</li>
+    {{/each}}
+</ul>
+{{/if}}
+
+<h2>json数据渲染</h2>
+{{$data}}
+</script>
+
+<!-- 引入require.js  使用data-main指定主模块 -->
+<script type="text/javascript" src="js/config.js"></script>
+<script src="js/lib/require.js" data-main="js/page/product.js"></script>
+</body>
+</html>
