@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+<title>高德地图api之location定位</title>
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&amp;key=e8496e8ac4b0f01100b98da5bde96597"></script>
+</head>
+<body>
+<a id="distance">获取距离</a>
+
+<!--<div id="container" style="width:500px;height:300px;"></div>-->
+
+<script type="text/javascript" src="../library/jquery-1.12.0.js" ></script>
+<script>
+//用户位置定位   使用geolocation定位 参考api http://lbs.amap.com/api/javascript-api/reference/location
+/**
+ * 说明
+ * dom id="container"存在就是现实地图
+ */
+!function(){
+	function GaodeMap(cfg){
+		this.config = {
+			container: 'container',//Dom id
+			cityName: null, //当前城市
+   			localLng: null,//经度 
+    		localLat: null//纬度
+		};
+		this.config = $.extend(this.config, cfg || {} );
+		this.map = {};
+		this.geolocation = {};
+		return this;
+	}
+	/**
+	 * 加载地图，调用浏览器定位服务
+	 * @param {Object} mapContainer
+	 * @param {Object} completCallback
+	 */
+	GaodeMap.prototype.initMap = function(completCallback){
+		var self = this;
+		if(typeof(AMap) === "object") {
+			self.map = new AMap.Map(self.config.container, {
+				resizeEnable: true
+			});
+			self.map.plugin('AMap.Geolocation', function() {
+				self.geolocation = new AMap.Geolocation({
+					enableHighAccuracy: true, //是否使用高精度定位，默认:true
+					timeout: 10000, //超过10秒后停止定位，默认：无穷大
+					maximumAge: 0, //定位结果缓存0毫秒，默认：0
+					convert: true, //自动偏移坐标，偏移后的坐标为高德坐标，默认：true
+					showButton: true, //显示定位按钮，默认：true
+					buttonPosition: 'LB', //定位按钮停靠位置，默认：'LB'，左下角
+					buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+					showMarker: true, //定位成功后在定位到的位置显示点标记，默认：true
+					showCircle: true, //定位成功后用圆圈表示定位精度范围，默认：true
+					panToLocation: true, //定位成功后将定位到的位置作为地图中心点，默认：true
+					zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+					noGeoLocation: 0 //是否禁止使用浏览器Geolocation定位，默认值为0，可选值0-3
+										//0: 可以使用浏览器定位
+										//1: 手机设备禁止使用浏览器定位
+										//2: PC上禁止使用浏览器定位
+										//3: 所有终端禁止使用浏览器定位
+				});
+				self.map.addControl(self.geolocation);
+				self.geolocation.getCurrentPosition(function(status,result){
+					//console.log(status);
+					//console.log(result);
+				});//获取当前纬度经度
+				
+				AMap.event.addListener(self.geolocation, 'complete', function(data){
+					onComplete(data);
+					if(completCallback && typeof completCallback === 'function') completCallback();
+				}); //返回定位信息
+				AMap.event.addListener(self.geolocation, 'error', onError); //返回定位出错信息
+			});
+			//成功匿名回调
+			function onComplete(data) {
+				//初始化本地经纬度
+		        self.config.localLng = data.position.getLng();
+		        self.config.localLat = data.position.getLat();
+		        //获取地市加载列表信息
+		        self.geolocation.getCityInfo(function(status,result){
+		        	self.config.cityName = result.city;
+		        })
+			}
+			//失败匿名回调
+			function onError() {
+				var str = '定位失败,';
+				str += '错误信息：'
+				switch(data.info) {
+					case 'PERMISSION_DENIED':
+						str += '浏览器阻止了定位操作';
+						break;
+					case 'POSITION_UNAVAILBLE':
+						str += '无法获得当前位置';
+						break;
+					case 'TIMEOUT':
+						str += '定位超时';
+						break;
+					default:
+						str += '未知错误';
+						break;
+				}
+				console.log("onError==",str)
+			}
+		};
+	}
+	
+	/**
+	 * 据两点的经纬度计算出距离 单位为KM
+	 * @param {Object} lng 经度
+	 * @param {Object} lat 纬度
+	 * @param {Object} callback
+	 */
+	GaodeMap.prototype.getDistance = function(lng, lat, callback) { 
+		var self = this;
+		self.initMap(function(){
+            var lnglat = new AMap.LngLat(self.config.localLng, self.config.localLat);
+            if (lng != "" && lat != "") {
+                var dist = lnglat.distance([lng, lat]);
+                var range = Math.floor(dist / 10) / 100;
+                if(callback && typeof callback === 'function') callback(range);
+            }
+        });
+	}
+		
+	window.GaodeMap = GaodeMap;	
+}();
+
+$(function(){
+	
+	var obj = {lng: 102.39,lat: 24.98};
+	//使用
+	var gaodeMap = new GaodeMap({});	
+	gaodeMap.getDistance(obj.lng, obj.lat,function(data){
+		$("#distance").html("获取距离=="+data);
+		console.log("getDistance==",data)
+	});
+})
+</script>
+</body>
+</html>
