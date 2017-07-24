@@ -32,7 +32,7 @@ input{width: 70px;height:20px;margin:100px auto;}
       
     //提示  取消  确定 ，此方法不带callback ，不等进行其他额外操作
 //  $("#tip").click(function(){  
-//      new TipBox({type:'tip',str:'这是提示信息',clickDomCancel:true,setTime:10000500,hasBtn:true});  
+//      new TipBox({type:'tip',str:'这是提示信息',clickDomCancel:true,hasBtn:true});  
 //  });  
 	
 	
@@ -46,7 +46,7 @@ input{width: 70px;height:20px;margin:100px auto;}
 	
 	//提示  确定操作
 	$("#tip").click(function(){  
-        new TipBox({type:'tip',str:'确定要删除吗？',setTime:10000500,hasBtn:true,callBack:function(){    
+        new TipBox({type:'tip',str:'确定要删除吗？',hasBtn:true,callBack:function(){    
         		console.log(111);
         		setTimeout(test(),5000);
         		//ajax模拟
