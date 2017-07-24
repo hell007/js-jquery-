@@ -7,6 +7,7 @@
  * @param {String} str -默认文字  
  * @param {Object} windowDom -载入窗口 默认当前窗口  
  * @param {Number} setTime -定时消失(毫秒) 默认为0 不消失  
+ * @param {Number} autoClose -是否自动关闭  默认succuss err支持
  * @param {Boolean} hasMask -是否显示遮罩  
  * @param {Boolean} hasMaskWhite -显示白色遮罩   
  * @param {Boolean} clickDomCancel -点击空白取消  
@@ -15,26 +16,22 @@
  * @param {String} type -动画类型 (加载,成功,失败,提示)  
  * @example   
  * new TipBox();   
- * new TipBox({type:'load',setTime:1000,callBack:function(){ alert(..) }});   
+ * new TipBox({type:'load',callBack:function(){ alert(..) }});   
 */  
  
- var TipBox = (function(cfg) {
-	
-	var instance;
- 
+!function() {
 	/**
 	 * @class TipBox
 	 * @constructor
 	 */
 	function TipBox(cfg) {
-		instance = this;
-		
 		this.config = {   
 	        width          : 250,
 	        height         : 170,                 
 	        str            : '正在处理',       
 	        windowDom      : window,   
-	        setTime        : 0,     
+	        setTime: 20000,   
+	        autoClose: 0,   
 	        hasMask        : true,    
 	        hasMaskWhite   : false,   
 	        clickDomCancel : false,    
@@ -42,16 +39,13 @@
 	        hasBtn         : false, 
 	        type           : 'success'  
 	    }  
-	    $.extend(this.config,cfg);    
-	      
+	    $.extend(this.config,cfg || {});    
 	    //存在就retrun  
-	    if(TipBox.prototype.boundingBox) return;  
-	      
+	    if(TipBox.prototype.boundingBox) return;     
 	    //初始化  
 	    this.render(this.config.type);
 		return this;
 	}
-  
   
   
 	//外层box  
@@ -62,7 +56,7 @@
 	    this.renderUI(tipType);   
 	      
 	    //绑定事件  
-	    this.bindUI();   
+	    this.bindEvent();   
 	      
 	    //初始化UI  
 	    this.syncUI();   
@@ -99,19 +93,24 @@
 	        $('button.closeButton').on('click',function(){_this.close();});
 	        //确定
 	        $('button.okButton').on('click',function(){_this.confirm();});
-	    }
-	    //定时消失  
-	    _this = this;  
-	    !this.config.setTime && typeof this.config.callBack === "function" && (this.config.setTime = 1);      
-	    this.config.setTime && setTimeout( function(){ _this.close(); }, _this.config.setTime );  
+	    } 
 	};  
 	  
-	TipBox.prototype.bindUI = function(){  
-	    _this = this;             
-	      
+	/**
+	 * 事件绑定
+	 */  
+	TipBox.prototype.bindEvent = function(){  
+	    _this = this;               
 	    //点击空白立即取消  
-	    this.config.clickDomCancel && this._mask && this._mask.click(function(){_this.close();});                        
-	};  
+	    this.config.clickDomCancel && this._mask && this._mask.click(function(){_this.close();}); 
+	    //定时消失   
+	    this.config.setTime && typeof this.config.callBack != "function" && (this.config.autoClose = 1);  
+	    this.config.autoClose && setTimeout( function(){ _this.close(); }, _this.config.setTime );  
+	}; 
+	
+	/**
+	 * 根据配置参数进行css重置
+	 */
 	TipBox.prototype.syncUI = function(){             
 	    TipBox.prototype.boundingBox.css({  
 	        width       : this.config.width+'px',  
@@ -156,28 +155,31 @@
 	    TipBox.prototype.boundingBox.append(err);  
 	};   
 	  
-	//关闭 or 取消 =>都不进行回调函数 
-	TipBox.prototype.close = function(){      
-	    TipBox.prototype.destroy();  
+	/**
+	 * 点击关闭按钮或者取消按钮  销毁dialog
+	 */
+	TipBox.prototype.close = function(){        
 	    this.destroy(); 
-	    this.config.setTime;
+	    //this.config.setTime;
 	    //this.config.setTime && typeof this.config.callBack === "function" && this.config.callBack();                  
 	};  
 	
-	//确定 
-	TipBox.prototype.confirm = function(){      
-	    TipBox.prototype.destroy();  
+	/**
+	 * 点击确定按钮进行回调操作
+	 */ 
+	TipBox.prototype.confirm = function(){       
 	    this.destroy();  
 	    this.config.setTime && typeof this.config.callBack === "function" && this.config.callBack();                  
 	}; 
 	  
-	//销毁  
+	/**
+	 * 销毁 
+	 */
 	TipBox.prototype.destroy = function(){  
 	    this._mask && this._mask.remove();  
 	    TipBox.prototype.boundingBox && TipBox.prototype.boundingBox.remove();   
 	    TipBox.prototype.boundingBox = null;  
 	};  
 	
-	return TipBox;	
-
-})();
+	window.TipBox = TipBox;
+}();
