@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+</head>
+<style type="text/css">
+    body {
+        margin: 0px;
+        /*background: black;*/
+    }
+    .loading {
+        width: 100px;
+        height: 100px;
+        margin: 50px auto;
+        border: 8px solid #333;
+        border-left: 8px solid red;
+        border-radius: 100px;
+        -moz-animation: 2s loadings linear infinite;
+        -webkit-animation: 2s loadings linear infinite;
+        -ms-animation: 2s loading linear infinite;
+        animation: 2s loadings linear infinite;
+    }
+    @-webkit-keyframes loadings {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-moz-keyframes loadings {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @-ms-keyframes loadings {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes loadings {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+ .loading1 {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0;
+}
+.loading1 .item {
+    display: inline-block;
+    margin-right: 5px;
+    width: 5px;
+    height: 45px;
+    background-color: #000;
+}
+.loading1 .loading-item1 {
+    -moz-animation: loading-animation 1.2s ease infinite;
+    -webkit-animation: loading-animation 1.2s ease infinite;
+    animation: loading-animation 1.2s ease infinite;
+}
+.loading1 .loading-item2 {
+    -moz-animation: loading-animation 1.2s ease -1.1s infinite;
+    -webkit-animation: loading-animation 1.2s ease -1.1s infinite;
+    animation: loading-animation 1.2s ease -1.1s infinite;
+}
+.loading1 .loading-item3 {
+    -moz-animation: loading-animation 1.2s ease -1.0s infinite;
+    -webkit-animation: loading-animation 1.2s ease -1.0s infinite;
+    animation: loading-animation 1.2s ease -1.0s infinite;
+}
+.loading1 .loading-item4 {
+    -moz-animation: loading-animation 1.2s ease -0.9s infinite;
+    -webkit-animation: loading-animation 1.2s ease -0.9s infinite;
+    animation: loading-animation 1.2s ease -0.9s infinite;
+}
+.loading1 .loading-item5 {
+    -moz-animation: loading-animation 1.2s ease -0.8s infinite;
+    -webkit-animation: loading-animation 1.2s ease -0.8s infinite;
+    animation: loading-animation 1.2s ease -0.8s infinite;
+}
+@-webkit-keyframes loading-animation {
+    0%,
+    40%,
+    100%{
+        -webkit-transform: scaleY(0.5);
+    }
+    20% {
+        -webkit-transform: scaleY(1);
+    }
+}
+@-moz-keyframes loading-animation {
+    0%,
+    40%,
+    100%{
+        -moz-transform: scaleY(0.5);
+    }
+    20% {
+        -moz-transform: scaleY(1);
+    }
+}
+@-ms-keyframes loading-animation {
+    0%,
+    40%,
+    100%{
+        -ms-transform: scaleY(0.5);
+    }
+    20% {
+        -ms-transform: scaleY(1);
+    }
+}
+@keyframes loading-animation {
+    0%,
+    40%,
+    100%{
+        transform: scaleY(0.5);
+    }
+    20% {
+        transform: scaleY(1);
+    }
+}    
+
+        .loading3 {
+            position: relative;
+            margin: 0 auto;
+            width: 100px;
+            height: 100px;
+            border: 5px solid red;
+            border-radius: 50%;
+        }
+        .loading3::before {
+            content: "";
+            position: absolute;
+            display: inline-block;
+            top: -5px;
+            left: -5px;
+            width: 50px;
+            height: 100px;
+            border-radius: 150px 0 0 150px;
+            border-left: 5px solid black;
+            border-bottom: 5px solid black;
+            border-top: 5px solid black;
+            -webkit-transform-origin: 60px 60px;
+            -moz-transform-origin: 60px 60px;
+            -ms-transform-origin: 60px 60px;
+            transform-origin: 55px 55px;
+            -webkit-animation: loading3 4s ease infinite -3s;
+            -moz-animation: loading3 4s ease infinite -3s;
+            -ms-animation: loading3 4s ease infinite -3s;
+            animation: loading3 4s ease infinite -3s;
+        }
+        .loading3::after {
+            content: "";
+            position: absolute;
+            display: inline-block;
+            top: -5px;
+            left: 50px;
+            width: 50px;
+            height: 100px;
+            border-radius: 0 150px 150px 0;
+            border-top: 5px solid black;
+            border-right: 5px solid black;
+            border-bottom: 5px solid black;
+            -webkit-transform-origin: 0;
+            -moz-transform-origin: 0;
+            -ms-transform-origin: 0;
+            transform-origin: 0;
+            -webkit-animation: loading3 4s ease infinite;
+            -moz-animation: loading3 4s ease infinite;
+            -ms-animation: loading3 4s ease infinite;
+            animation: loading3 4s ease infinite;
+        }
+        @-webkit-keyframes loading3 {
+            0%{
+                -webkit-transform: rotate(0);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes loading3 {
+            0%{
+                -moz-transform: rotate(0);
+            }
+            100% {
+                -moz-transform: rotate(360deg);
+            }
+        }
+        @-ms-keyframes loading3 {
+            0%{
+                -ms-transform: rotate(0);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+            }
+        }
+        @keyframes loading3 {
+            0%{
+                transform: rotate(0);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+</style>
+<body>
+    <div class="loading"></div>
+
+    <div class="loading1">
+        <span class="item loading-item1"></span>
+        <span class="item loading-item2"></span>
+        <span class="item loading-item3"></span>
+        <span class="item loading-item4"></span>
+        <span class="item loading-item5"></span>
+    </div>
+
+    <div class="loading3"></div>
+</body>
+</html>
