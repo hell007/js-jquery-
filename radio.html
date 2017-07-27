@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport"/>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+<style>
+.radio-check {
+    position: relative;
+    height: 35px;
+}
+.radio-check > input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height:20px;
+    opacity: 0;
+}
+.radio-check > label {
+    position: absolute;
+    left: 30px;
+    line-height: 20px;
+    top: 0px;
+}
+.radio-check > label:before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+.radio-check > label:after {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 0px;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 6px;
+    margin-left: 6px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+.radio-check input[type='radio']:checked + label:before {
+    border-color: #4cd764;
+}
+.radio-check input[type='radio']:checked + label:after {
+    background: #4cd764;
+}
+
+</style>
+<body>
+<div class='radio-check'>
+    <input type='radio' name='test' id='test1'/>
+    <label for='test1' class>苹果</label>
+</div>
+<div class='radio-check'>
+    <input type='radio' name='test' id='test2'/>
+    <label for='test2' class>橘子</label>
+</div>
+<div class='radio-check'>
+    <input type='radio' name='test' id='test3'/>
+    <label for='test3' class>梨</label>
+</div>
+<div class='radio-check'>
+    <input type='radio' name='test' id='test4'/>
+    <label for='test4' class>香蕉</label>
+</div>
+<div class='radio-check'>
+    <input type='radio' name='test' id='test5'/>
+    <label for='test5' class>菠萝</label>
+</div>
+</body>
+</html>
