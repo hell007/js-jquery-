@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<meta charset='utf-8'>
+
+<style>
+.swift-btn {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+.swift-btn input[type='checkbox'] {
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    opacity: 0;
+    z-index: 9;
+    outline: none;
+}
+.swift-btn > label{
+    position: absolute;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+}
+.swift-btn > label:before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    left: 40px;
+    width: 25px;
+    height: 25px;
+    border-radius: 20px;
+    line-height: 25px;
+    text-indent: -1px;
+}
+.swift-btn > label:after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    left: 0;
+    top: 1px;
+    border-radius: 1px;
+    box-shadow:2px 0px 1px #ddd;
+    border-radius: 15px;
+    background-color: #fff;
+    transition: left 0.3s ease;
+    -webkit-transition: left 0.3s ease;
+    -moz-transition: left 0.3s ease;
+}
+.swift-btn input[type='checkbox']:checked + label{
+    border: 1px solid #000;
+    background-color: #000;
+}
+.swift-btn input[type='checkbox']:checked + label::before {
+    display: inline-block;
+    color: #fff;
+    text-indent: -25px;
+}
+.swift-btn input[type='checkbox']:checked + label::after {
+    left: 26px;
+    top: 1px;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    box-shadow: none;
+    box-sizing: content-box;
+}
+</style>
+
+<body>
+<span class="add-item-status swift-btn">
+    <input type="checkbox" name="" id='checkbox' />
+    <label class="" for='checkbox'></label>
+</span>
+</body>
+</html>
