@@ -12,8 +12,7 @@
 <style type="text/css">
 	html {font-size: 100%;}
 	body {font-size: 1em;}
-	.wrapper1 {
-		font-size: 0.875em;/*1 ÷ 16 × 14= 0.875em值*/
+	.wrapper1 {/*font-size；16px*/
 		width: 12.5em;/*1 ÷ 16 × 200 = 12.5em值*/
 		height: 6.25em;/*1 ÷ 16 × 100 = 6.25em值*/
 		border: 0.3125em solid red;/*1 ÷ 16 × 5 = 0.3125em值*/
@@ -22,7 +21,7 @@
 		line-height: 1.125em;/*1 ÷ 16 × 18 = 1.125em值*/
 	}
 	
-	.wrapper2 {
+	.wrapper2 {/*font-size；14px*/
 		font-size: 0.875em;/*1 ÷ 16 × 14= 0.875em值*/
 		width: 14.2857em;/*1 ÷ 14 × 200 = 14.2857em值*/
 		height: 7.1429em;/*1 ÷ 14 × 100 = 7.1429em值*/
@@ -37,17 +36,13 @@
 /*1、浏览器的默认字体大小是16px
 
 2、如果元素自身没有设置字体大小，那么元素自身上的所有属性值如“boder、width、height、padding、margin、line-height”等值，我们都可以按下面的公式来计算
+	1 ÷ 父元素的font-size × 需要转换的像素值 = em值 (所有属性值)
 
-	1 ÷ 父元素的font-size × 需要转换的像素值 = em值
-
-3、这一种千万要慢慢理解，不然很容易与第二点混了。如果元素设置了字体大小，那么字体大小的转换依旧按第二条公式计算，也就是下面的：
-
-	1 ÷ 父元素的font-size × 需要转换的像素值 = em值
-
+3、如果元素设置了字体大小，那么字体大小的转换依旧按第二条公式计算，也就是下面的：
+	1 ÷ 父元素的font-size × 需要转换的像素值 = em值 (字体大小)
 那么元素设置了字体大小，此元素的其他属性，如“border、width、height、padding、margin、line-height”计算就需要按照下面的公式来计算：
-
-1 ÷ 元素自身的font-size × 需要转换的像素值 = em值*/
-
+1 ÷ 元素自身的font-size × 需要转换的像素值 = em值 (其他属性值)
+*/
 </style>
 </head>
 <body>
@@ -65,7 +60,3 @@
 </div>
 </body>
 </html>
-
-
-
-		
