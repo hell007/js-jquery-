@@ -35,7 +35,7 @@ var page = new Page({
 	function Page(cfg) {
 		//默认设置
 		this.defaults = {
-			container: 'paging', //父容器id
+		container: 'paging', //父容器id
 	        itemType: 'span', //分页dom类型
 	        href: '',  // 分页锚点(默认'')  href="#comment"
 	        total: 0,     //总页数
