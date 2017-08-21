@@ -1,0 +1,24 @@
+*{margin:0;padding:0;border:0;list-style:none;outline:none;box-sizing:border-box;}
+body{background:#fff;}
+.xw-dialog{font-family:"Microsoft Yahei",Arial,Tahoma;font-size:12px;width:260px;height:auto;background:#fff;border-radius:6px;position:fixed;left:50%;top:50%;margin-left:-130px;margin-top:100px;z-index:1001;border-bottom:1px solid #c0c0c0;}
+.xw-mask-white,.xw-mask-default{width:100%;height:100%;background-color:#fff;opacity:.6;filter:alpha(opacity=60);position:fixed;left:0;top:0;z-index:1000}
+.xw-mask-default{background-color:#000;}
+.xw-dialog-title{padding: 0 80px 0 20px;height: 42px;line-height: 42px;border-bottom: 1px solid #eee;font-size: 14px;color: #333;overflow: hidden;background-color: #F8F8F8;border-radius: 2px 2px 0 0;}
+.xw-dialog-content{max-height:300px;padding:20px;line-height:24px;word-break:break-all;overflow-x:hidden;overflow-y:auto;font-size:12px;}
+.xw-dialog-content::-webkit-scrollbar {width:4px;}
+.xw-dialog-content::-webkit-scrollbar-track {background-color:#f5f5f5;-webkit-border-radius:2em;-moz-border-radius: 2em;border-radius:2em;}
+.xw-dialog-content::-webkit-scrollbar-thumb {border-radius:3px;background-color:#FFF;background-image:-webkit-gradient(linear,40% 0%,75% 84%,from(#ddd),to(#ddd),color-stop(.6, #d8d8d8));-webkit-border-radius:2em;-moz-border-radius:2em;border-radius:2em;}
+.xw-dialog-tips{overflow:hidden;height:30px;padding:5px 0;color:#f55d54;}
+.xw-check-item{margin-bottom:20px;overflow:hidden;}
+.xw-dialog-content.xw-dialog-check-content{padding-bottom:0;}
+.xw-dialog-check-content .xw-check-item:nth-child(2){margin-bottom:0;}
+.xw-input{width:100%;height:34px;border:1px solid #c0c0c0;border-radius:3px;padding-left:10px;}
+.wx-input-40{width:50%;margin-right:20px;float:left;}
+.xw-error{border:1px solid #f55d54;}
+.xw-lock{background:#c0c0c0;cursor:none;}
+.xw-code-btn{padding:0 5px;display:inline-block;height:34px;text-align:center;line-height:34px;border:1px solid #c0c0c0;border-radius:3px;float:right;cursor:pointer;}
+.xw-dialog-btn{display:flex;flex-direction:row;text-align:center;border-top:1px solid #c0c0c0;}
+.xw-dialog-btn button{flex:1;height:45px;line-height:45px;background:none;border:0;pointer-events:auto;user-select:none;-webkit-user-select:none;text-align:center;cursor:pointer;}
+.xw-dialog-btn button:nth-child(2){border-left:1px solid #c0c0c0;}
+.xw-center-button,.xw-close-button,.xw-ok-button{font-size:16px;color:#999;}
+.xw-center-button,.xw-ok-button{color:#1c74d9;}
