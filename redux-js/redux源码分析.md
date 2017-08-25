@@ -10,4 +10,4 @@
 
 3. [React系列---Redux高阶运用](https://segmentfault.com/a/1190000010205508)
 
-4. [React系列---React-Router]{https://segmentfault.com/a/1190000009894639}
+4. [React系列---React-Router](https://segmentfault.com/a/1190000009894639)
