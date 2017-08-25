@@ -1,3 +1,15 @@
+/**
+redux.combineReducers(reducerMap) 的作用在于合并多个reducer函数，并返回一个新的reducer函数。因此可以看到，combineReducers 返回了一个函数，并且该函数的参数同样是state、reducer。
+
+可以先看伪代码感受下，最终 store.getState() 返回的state，大概会是这么个样子{todos: xx, filter: xx}。简单的说，state被拆分成了两份，TodoReducer的返回值赋值给了state.todos，FilterReducer的返回值赋值给了state.filter。
+
+combineReducers(reducerMap) 传入一个对象，并返回一个全新的reducer。调用方式跟跟普通的reducer一样，也是传入state、action。
+通过combineReducers，对 store 的状态state进行拆分，
+reducerMap的key，就是 state 的key，而 调用对应的reducer返回的值，则是这个key对应的值。如上面的例子，state.todos == TodoReducer(state, action)
+redux.createStore(finalReducers, initialState) 调用时，同样会对 state 进行初始化。这个初始化跟通过普通的reducer进行初始化没多大区别。举例来说，如果 initialState.todos = undefined，那么 TodoReducer(state, action) 初始传入的state就是undefined；如果initialState.todos = []，那么 TodoReducer(state, action) 初始传入的state就是[];
+store.dispatch(action)，finalReducers 里面，会遍历整个reducerMap，依次调用每个reducer，并将每个reducer返回的子state赋给state对应的key
+**/
+
 import { ActionTypes } from './createStore'
 import isPlainObject from 'lodash/isPlainObject'
 import warning from './utils/warning'
