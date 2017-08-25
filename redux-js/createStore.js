@@ -1,3 +1,12 @@
+/*
+redux.createStore(reducer, initialState) 传入了reducer、initialState，并返回一个store对象。
+store对象对外暴露了dispatch、getState、subscribe方法
+store对象通过getState() 获取内部状态
+initialState为 store 的初始状态，如果不传则为undefined
+store对象通过reducer来修改内部状态
+store对象创建的时候，内部会主动调用dispatch({ type: ActionTypes.INIT });来对内部状态进行初始化。通过断点或者日志打印就可以看到，store对象创建的同时，reducer就会被调用进行初始化。
+*/
+
 // 导入 lodash ，判断是否是普通(plain)对象
 import isPlainObject from 'lodash/isPlainObject'
 //导入 symbol 类型的 observable (symbol类型的属性，是对象的私有属性)
