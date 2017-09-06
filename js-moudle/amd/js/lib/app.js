@@ -35,6 +35,12 @@ define(['jquery'], function($){
 			golbal.maskDom.remove();
 		};
 		// E
+		//采用正则表达式获取地址栏参数
+		var GetQueryString = function (name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null)return  unescape(r[2]); return null;
+		};
 		
 		//
 		return {
