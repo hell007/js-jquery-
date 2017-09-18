@@ -16,7 +16,7 @@
  * @param {String} type -动画类型 (加载,成功,失败,提示)  
  * @example   
  * new TipBox();   
- * new TipBox({type:'load',setTime:1000,callBack:function(){ alert(..) }});   
+ * new TipBox({type:'success',content:'成功'}});   
 */  
  
  var TipBox = (function(cfg) {
