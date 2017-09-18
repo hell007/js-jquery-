@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1.0" />  
+<title></title>
+<link rel="stylesheet" type="text/css" href="dialog.css">
+<style type="text/css">
+.div{width: 140px;height:30px;border:1px solid #ddd;margin-bottom:20px;}
+</style>
+</head>
+<body>
+<center>
+<div class="div" id="success"> success </div>
+<div class="div" id="error">  error </div>
+<div class="div" id="tip"> tip </div>   
+</center>
+
+<script src="../library/jquery-1.8.3.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="dialog.js"></script>
+<script type="text/javascript">
+ 	
+ 	
+ 	
+ 	//alert 弹出框调用
+    $("#success").click(function(){  
+        new TipBox({type:'success',content:'请输入您的手机号码!'});
+    }); 
+    
+    //error
+    $("#error").click(function(){  
+        new TipBox({type:'error',content:'请输入您的手机号码!'});
+    }); 
+    
+    //tip 弹出框调用
+    $("#tip").click(function(){  
+        new TipBox({
+        	type:'tip',
+        	content:'确定要删除吗？',
+        	confirmCallback:function(){
+        		console.log(222)
+        	}
+        });
+    });
+
+    
+</script>
+</body>
+</html>
