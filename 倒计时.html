@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+	
+	<div id="timer-clock">
+		
+	</div>
+	
+<script src="library/jquery-1.12.0.js" ></script>	
+<script type="text/javascript">
+
+
+/**
+ *倒计时实现方式 以及一不小心出现的致命点分析
+ * 1.使用递归方式  当不满足条件一定要跳出循环
+ * 2.使用时间差值--1000 
+ * 3.timer = setInterval(function(){setCountDownTime();},1000);这种情况会产生内存溢出，浏览器锁死
+ *
+ * 
+ */
+
+countTime();
+
+function countTime() {  
+    //获取当前时间  
+    var date = new Date();  
+    var now = date.getTime();  
+    //设置截止时间  
+    var endDate = new Date("2017-9-23 15:00:00");  
+    var end = endDate.getTime();  
+    //时间差  
+    var leftTime = end-now;  
+    //定义变量 d,h,m,s保存倒计时的时间  
+    var d,h,m,s;  
+    if (leftTime>=0) {  
+        d = Math.floor(leftTime/1000/60/60/24);  
+        h = Math.floor(leftTime/1000/60/60%24);  
+        m = Math.floor(leftTime/1000/60%60);  
+        s = Math.floor(leftTime/1000%60);                     
+    }else{
+    	return ;
+    }  
+    //
+    console.log(d +"天"+ h +"时"+ m +"分"+ s +"秒");
+    //递归每秒调用countTime方法，显示动态时间效果  
+    setTimeout(countTime,1000);  
+
+} 
+
+/**
+ * Index
+ */
+var Index = (function(){
+
+	//倒计时
+	var setCountDownTime = function(){
+		//获取当前时间  
+		var date = new Date();  
+		var now = date.getTime();  
+		//设置截止时间  
+		var endDate = new Date("2017-9-23 15:00:00");  
+		var end = endDate.getTime();  
+		//时间差  
+		var leftTime = end-now; 
+	    var h,m,s,html,timer; 
+	    timer = setInterval(function(){
+	    	if (leftTime>=0) {  
+		        h = Math.floor(leftTime/1000/60/60);  
+		        m = Math.floor(leftTime/1000/60%60);  
+		        s = Math.floor(leftTime/1000%60); 
+		        html = '<em>'+ (h>9 ? h : '0'+h) +'</em> : <em>'+ (m>9 ? m : '0'+m) +'</em> : <em>'+ (s>9 ? s : '0'+s) +'</em>'; 
+			    $("#timer-clock").html(html);
+			    leftTime = leftTime - 1000;			    
+		    }else{
+		    	clearInterval(timer);
+		    	timer = null;
+		    	$("#timer-clock").hide();
+		    }  
+	    },1000); 
+	}
+	return{
+		init:function(){
+			setCountDownTime();//倒计时
+		}
+	}
+})();
+
+//load
+$(function(){
+	Index.init();
+})
+	
+</script>	
+</body>
+</html>
