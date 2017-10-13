@@ -111,3 +111,13 @@
 - map    循环数组中的每一项，然后进行相关的操作，相对于forEach来说，map有返回值，可以修改数组中某一项，IE678不兼容，
     - ary.map(function(item,index,input){},cantext);第二个参数是指定函数中的this，不写默认是window
 - length
+- some  是对数组中每一项运行指定函数，如果该函数对**任一项**返回true，则返回true
+    -ary.some(function(item){})
+- every 是对数组中每一项运行给定函数，如果该函数对**每一项**返回true,则返回true
+    -ary.every(function(item){})
+- filter 创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素
+    -ary.filter(function(item){})
+    对数组中的每个元素都执行一次指定的函数（callback），并且创建一个新的数组，该数组元素是所有回调函数执行时返回值为true的原数组元素
+    filter()不会对空数组进行检测
+    filter()不会改变原始数组
+    
