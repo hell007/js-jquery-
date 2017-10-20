@@ -99,8 +99,12 @@
     - slice(n,m)    从索引n开找到索引m处(不包含m)，将找到的内容放到新数组返回，原有的数组不变
     - slice(n)      从索引n处一直找到数组末尾；
     - slice(0)      数组克隆
-- concat        将两个数组进行拼接，原有数组不变，例如ary1.concat(ary2)
-    - ary1.concat() 相当于clice(0)也是克隆数组
+    
+- concat        基于当前数组中所有项创建新数组,原有数组不变
+    - ary1.concat() 相当于clice(0)也是克隆数组
+    var color = ['red','green']
+    var color2 = colors.concat("yellow",["black","brown"])
+    
 - join      将数组按照指定的分隔符拆分字符串，原有的数组不变
 - toString  将数组转化为字符串，原有的数组不变
 - sort      数组排序的方法，原有数组改变，我们通常这样写，ary.sort(function(a,b){return a-b;});来实现数组的升序排列 
@@ -108,13 +112,17 @@
 - indexOf / lastIndexOf 获取数组中某一项的索引，通常用来检测数组中是否包含某一项内容，不包含返回的是-1；这个方法在IE678下不兼容；
 - forEach   循环数组中每一项，然后进行相关的操作，这个方法在IE678不兼容，
     - ary.forEach(function(item,index,input){},cantext);第二个参数是指定函数中的this，不写默认是window
+    
 - map    循环数组中的每一项，然后进行相关的操作，相对于forEach来说，map有返回值，可以修改数组中某一项，IE678不兼容，
     - ary.map(function(item,index,input){},cantext);第二个参数是指定函数中的this，不写默认是window
+    
 - length
 - some  是对数组中每一项运行指定函数，如果该函数对**任一项**返回true，则返回true
     - ary.some(function(item){})
+    
 - every 是对数组中每一项运行给定函数，如果该函数对**每一项**返回true,则返回true
     - ary.every(function(item){})
+    
 - filter 创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素
     - ary.filter(function(item){})
     
