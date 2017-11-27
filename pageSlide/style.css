@@ -1,0 +1,26 @@
+*{padding:0;margin:0}
+body,html{height:100%;font-family:"微软雅黑";overflow:hidden;font-size:14px}
+header{position:fixed;}
+.scroll-page{position:fixed;top:68px}
+.scroll-page .content{width:100%}
+.scroll-page .left-content, .scroll-page .right-content{float:left;overflow-x:hidden;overflow-y:scroll;height:100%}
+.right-content::-webkit-scrollbar {width:4px;}
+.right-content::-webkit-scrollbar-track {background-color:#fff;-webkit-border-radius:2em;-moz-border-radius: 2em;border-radius:2em;}
+.right-content::-webkit-scrollbar-thumb {border-radius:3px;background-image:-webkit-gradient(linear,40% 0%,75% 84%,from(#999),to(#999),color-stop(.6, #999));-webkit-border-radius:2em;-moz-border-radius:2em;border-radius:2em;}
+.scroll-page .content .left-content{position:fixed;width:25%;background:#eee}
+.scroll-page .content .left-content ul{list-style:none}
+.scroll-page .content .left-content ul li{padding:15px 5px;text-align:center}
+.scroll-page .right-content{width:75%;}
+.scroll-page .right-content ul{list-style:none}
+.scroll-page .right-content ul .class-title{padding:7px 10px;background:#eee;width:100%}
+.scroll-page .right-content ul li:last-child{min-height:100vh;}
+.item{overflow:hidden;width:100%;padding:10px;background:#fff;border-bottom:1px solid #eee;box-sizing:border-box}
+.item-left{float:left}
+.item-img{width:100px;height:100px;background:#eee}
+.item-right{float:left;padding:0 10px}
+.title{width:100px;height:20px;margin-top:10px;background:#eee}
+.subtitle{width:70px;height:20px;margin-top:10px;background:#eee}
+.price{width:50px;height:20px;margin-top:10px;background:#eee}
+.active{background:#fff;border-left:3px solid #3190e8}
+
+
