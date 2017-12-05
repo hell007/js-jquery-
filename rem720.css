@@ -1,0 +1,87 @@
+@charset "utf-8";
+*{box-sizing:border-box;-webkit-box-sizing:border-box;}
+html{margin:0;padding:0;border:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+a,abbr,acronym,address,article,aside,blockquote,caption,code,del,dfn,dialog,header,footer,nav,object,section,
+body,dd,div,dl,dt,em,img,fieldset,figure,form,h1,h2,h3,h4,h5,h6,hgroup,iframe,legend,p,pre,q,span,tbody,tfoot,thead,ul,ol,li
+{margin:0;padding:0;border:0;list-style:none;vertical-align:baseline;}
+article,aside,details,dialog,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+body{font-family:"Microsoft YaHei";}
+img{border:0;vertical-align:bottom}
+::-webkit-input-placeholder{color:#999}
+:-moz-placeholder{color:#999}
+::-moz-placeholder{color:#999}
+:-ms-input-placeholder{color:#ccc}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+textarea{overflow:auto}
+button:focus,input:focus,select:focus,textarea:focus{outline:0}
+input::-ms-clear{display:none}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+a{background:none;text-decoration:none;color:#323232;cursor:pointer;}
+a:active,a:hover{outline:0}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:700}
+dfn{font-style:italic}
+mark{color:#000;background:#ff0}
+small{font-size:80%}
+sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+svg:not(:root){overflow:hidden}
+figure{margin:1em 40px}
+hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box}
+pre{overflow:auto}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{margin:0;font:inherit}
+button{overflow:visible}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+input{line-height:normal;margin:0;padding:0;}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}
+legend{padding:0;border:0}
+optgroup{font-weight:700}
+table{border-spacing:0;border-collapse:collapse}
+td,th{padding:0}
+/*rem*/
+body,html{height:100%;}
+body{width:100%;font-size:12px;font-family:"Microsoft Yahei";}
+.wrap{width:100%;margin:0 auto;max-width:7.2rem;min-width:3.2rem;}
+.clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;zoom:1;}
+/*define*/
+.fl{float:left;}
+.fr{float:right;}
+.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.hide{display:none;}
+.clear{clear:both;}
+.flexRow{display:flex;flex-direction:row;align-items:center;}
+.flexcolumn{display:flex;flex-direction:column;}
+i{display:inline-block;vertical-align:middle;}
+
+/***
+ * reset.css
+ * 注意事项
+ 1、采用此重置样式，需要结合下面的rem function一起使用
+function rem(baseWidth){
+    var root = document.documentElement;
+    var w = root.clientWidth;
+    w = w > 720 ? 720 : w < 320 ? 320 : w;
+    var fz = w / baseWidth * 100;
+    root.style.fontSize = fz + "px";
+}	
+$(function(){
+	rem(720);
+})
+2、在720的设计稿下，font-size都是320的两倍
+3、body{font-size:12px;} //font-size:0.12rem; 没有设置字体大小的文字在手机设备上字体比较小，pc端没区别  建议12px
+4、对于使用rem(720)自适应 需要将js文件放在<head>内，否则页面加载过程中会有点小异常，然后才显示正常
+5、采用rem(720)会存在的bug  总体渲染出来的大小比设计稿要小一些 ，图标会存在稍微的变形
+ */
