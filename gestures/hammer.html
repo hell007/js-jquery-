@@ -8,9 +8,102 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="format-detection" content="email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-<link href="css/reset.css" rel="stylesheet" type="text/css"/>
-<link href="css/coupon.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="js/flexible.js" ></script>
+<style>
+@charset "utf-8";
+*{box-sizing:border-box;-webkit-box-sizing:border-box;}
+html{margin:0;padding:0;border:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}
+a,abbr,acronym,address,article,aside,blockquote,caption,code,del,dfn,dialog,header,footer,nav,object,section,
+body,dd,div,dl,dt,em,img,fieldset,figure,form,h1,h2,h3,h4,h5,h6,hgroup,iframe,legend,p,pre,q,span,tbody,tfoot,thead,ul,ol,li
+{margin:0;padding:0;border:0;list-style:none;vertical-align:baseline;}
+article,aside,details,dialog,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+body{font-family:"Microsoft YaHei";}
+img{border:0;vertical-align:bottom}
+::-webkit-input-placeholder{color:#999}
+:-moz-placeholder{color:#999}
+::-moz-placeholder{color:#999}
+:-ms-input-placeholder{color:#ccc}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+textarea{overflow:auto}
+button:focus,input:focus,select:focus,textarea:focus{outline:0}
+input::-ms-clear{display:none}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
+audio,canvas,progress,video{display:inline-block;vertical-align:baseline}
+audio:not([controls]){display:none;height:0}
+[hidden],template{display:none}
+a{background:none;text-decoration:none;color:#323232;cursor:pointer;}
+a:active,a:hover{outline:0}
+a:focus{outline:thin dotted;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:700}
+dfn{font-style:italic}
+mark{color:#000;background:#ff0}
+small{font-size:80%}
+sub,sup{position:relative;font-size:75%;line-height:0;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+svg:not(:root){overflow:hidden}
+figure{margin:1em 40px}
+hr{height:0;-moz-box-sizing:content-box;box-sizing:content-box}
+pre{overflow:auto}
+code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}
+button,input,optgroup,select,textarea{margin:0;font:inherit}
+button{overflow:visible}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}
+input{line-height:normal;margin:0;padding:0;}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;padding:0}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{height:auto}
+input[type=search]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none}
+fieldset{padding:.35em .625em .75em;margin:0 2px;border:1px solid silver}
+legend{padding:0;border:0}
+optgroup{font-weight:700}
+table{border-spacing:0;border-collapse:collapse}
+td,th{padding:0}
+/*rem*/
+body,html{height:100%;}
+body{width:100%;font-size:12px;font-family:"PingFang SC Bold","Microsoft Yahei";background:#fff;}
+.wrap{position:relative;width:100%;height:100%;margin:0 auto;max-width:750px;min-width:320px;}
+.clearfix:after{content:".";display:block;clear:both;height:0;visibility:hidden;zoom:1;}
+/*define*/
+.fl{float:left;}
+.fr{float:right;}
+.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.clear{clear:both;}
+.flexRow{display:flex;flex-direction:row;align-items:center;}
+.flexcolumn{display:flex;flex-direction:column;}
+.hide{display:none;}
+i{display:inline-block;font-style:normal;}
+.white{background:#fff;}
+/*global*/
+.g-header{height:0.88rem;box-shadow:0px 5px 5px rgba(0, 0, 0, 0.05);}
+.g-back{width:1rem;}
+.g-back:before{content:"";display:block;width:0.46rem;height:0.46rem;margin:0 auto;background-image:url(../images/g-back.png);background-size:cover;}
+.g-title{flex:4;text-align:center;font-size:0.32rem;color:#546175;}
+.g-box{flex:1;text-align:center;}
+body{background:#f6f8f9;}
+.g-box a{text-align:center;font-size:0.32rem;color:#546175;}
+/*coupon-list*/
+.coupon-list{margin-top:0.36rem;}
+.coupon-list li{position:relative;width:100%;min-height:2.82rem;margin-bottom:0.34rem;}
+.coupon-box{position:relative;z-index:5;transition:all 0.3s linear;width:6.9rem;min-height:2.32rem;padding:0.24rem 0.3rem;margin:0 auto;border-radius:0.18rem;background:#fff;box-shadow:0px 3px 16px rgba(183, 198, 225, 0.35);}
+.coupon-title i{width:0.63rem;height:0.63rem;background:url(../images/icon-coupon.png);background-size:0.63rem 0.63rem;}
+.coupon-title span{margin-left:0.26rem;font-size:0.24rem;color:#9daab8;}
+.coupon-name{height:0.44rem;margin:0 0 0.28rem 0.86rem;font-size:0.32rem;color:#546175;}
+.coupon-date{padding-top:0.16rem;border-top:1px solid #eff3f6;}
+.coupon-date span{font-size:0.24rem;color:#9daab8;}
+.coupon-date span:last-child{margin-left:0.4rem;}
+.coupon-del{position:absolute;right:3%;top:50%;margin-top:-0.5rem;z-index:2;width:1.24rem;}
+.coupon-del span{display:block;width:1.24rem;height:1.24rem;background-image:url(../images/coupon-del.png);background-size:1.24rem 1.24rem;}
+.coupon-flag{position:absolute;left:50%;top:-0.27rem;z-index:2;margin-left:-0.7rem;width:1.41rem;height:0.51rem;font-size:0.24rem;color:#546175;border-radius:0.05rem;background:#fff;box-shadow:0px 3px 16px rgba(183, 198, 225, 0.35);}
+.coupon-flag:before{display:inline-block;content:"";width:0.28rem;height:0.28rem;margin:0 0.14rem;background-image:url(../images/coupon-flag.png);background-size:0.28rem 0.28rem;}
+.voucher{margin-top:0.8rem;}
+.voucher li{margin-bottom:0.7rem;}
+.coupon-list li.on .coupon-box{transform: translate(-1.3rem,0);transition:all 0.3s linear;}
+</style>
+<script type="text/javascript" src="flexible.js" ></script>
 </head>
 <body>
 <div class="wrap">
@@ -51,9 +144,32 @@
 		</li>
 	</ul>
 </div>
-<script type="text/javascript" src="js/jquery-2.1.4.js" ></script>
-<script type="text/javascript" src="js/jquery.hammer.js" ></script>
-<script type="text/javascript" src="js/coupon.js" ></script>
+<script type="text/javascript" src="jquery-2.1.4.js" ></script>
+<script type="text/javascript" src="jquery.hammer.js" ></script>
+<script type="text/javascript" >
+$(function(){
+	
+    //滑动
+    $(".coupon-list li .coupon-box").hammer().on("swipeleft",function(){
+		$(this).parent("li").addClass("on");
+    }).on("swiperight",function(){
+        $(this).parent("li").removeClass("on");
+    })
+    
+    //删除操作
+    $(".coupon-del").on("click",function(){
+        var counponId = $(this).parent("li").attr("id");
+        //执行删除效果
+        $("#"+counponId).stop().animate({
+            height:"0"
+        },300,function(){
+            $(this).remove();
+        })
+    })
+    
+
+})
+</script>
 </body>
 </html>
 
