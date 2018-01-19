@@ -1,46 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<title>hammerjs</title>
-<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
-
-<script src="jquery-1.9.js"></script>
-<script src="hammer.js"></script>
-<script src="jquery.specialevent.hammer.js"></script>
-<style>
-    #swipeme {
-        border: 3px dashed orange;
-        line-height: 300px;
-        height: 300px;
-        text-align: center;
-        font-size: 3em;
-        width: 100%;
-    }
-</style>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+<title></title>
+<meta name="renderer" content="webkit">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name="format-detection" content="email=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+<link href="css/reset.css" rel="stylesheet" type="text/css"/>
+<link href="css/coupon.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="js/flexible.js" ></script>
 </head>
 <body>
-<div id="swipeme">
-    Touch me :)
+<div class="wrap">
+	<div class="flexRow g-header white">
+		<a class="g-back" href="javascript:history.back();"></a>
+		<span class="g-title">券</span>
+		<div class="g-box"><a href="voucher.html">失效券</a></div>
+	</div>
+	<!--优惠券-->
+	<ul class="coupon-list">
+		<li id="coupon-1000">
+			<div class="coupon-box">
+				<div class="flexRow coupon-title">
+					<i></i>
+					<span>机票代金券</span>
+				</div>
+				<p class="coupon-name ellipsis">3.0元昆明航空代金券</p>
+				<div class="coupon-date">
+					<span>领取时间:2018-1-15 16:00</span>
+					<span>失效时间:2018-2-15 16:00</span>
+				</div>
+			</div>
+			<div class="coupon-del"><span></span></div>
+		</li>
+		<li id="coupon-1001">
+			<div class="coupon-box">
+				<div class="flexRow coupon-title">
+					<i></i>
+					<span>机票代金券</span>
+				</div>
+				<p class="coupon-name ellipsis">3.0元昆明航空代金券</p>
+				<div class="coupon-date">
+					<span>领取时间:2018-1-15 16:00</span>
+					<span>失效时间:2018-2-15 16:00</span>
+				</div>
+			</div>
+			<div class="coupon-del"><span></span></div>
+		</li>
+	</ul>
 </div>
-
-<script>
-(function ($) {
-    var $sw = $('#swipeme');
-
-    $sw.on('hold tap swipe doubletap transformstart transform transformend dragstart drag dragend swipe release', function (event) {
-        event.preventDefault();
-
-        console.log("Type: " + event.type + ", Fingers: " + event.touches.length + ", Direction: " + event.direction);
-    });
-
-    // this is how you unbind an event
-    /*$sw.on('swipe', function (event) {
-        event.preventDefault();
-
-        $sw.off('tap');
-    });*/
-}(jQuery));
-</script>
+<script type="text/javascript" src="js/jquery-2.1.4.js" ></script>
+<script type="text/javascript" src="js/jquery.hammer.js" ></script>
+<script type="text/javascript" src="js/coupon.js" ></script>
 </body>
 </html>
+
