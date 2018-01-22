@@ -1,5 +1,5 @@
 
-## Object对象
+## object对象
 
 JavaScript 原生提供Object对象
 
@@ -7,7 +7,7 @@ JavaScript 的所有其他对象都继承自Object对象，即那些对象都是
 
 Object对象的原生方法分成两类：Object自身的方法与Object的实例方法。
 
-#####（1）Object对象自身的方法
+（1）Object对象自身的方法
 
 所谓”自身的方法“就是直接定义在Object对象的方法。
 
@@ -18,7 +18,7 @@ Object.print = function (o) { console.log(o) };
 
 上面代码中，print方法就是直接定义在Object对象上。
 
-##### （2）Object的实例方法
+（2）Object的实例方法
 
 所谓实例方法就是定义在Object原型对象Object.prototype上的方法。它可以被Object实例直接使用。
 
@@ -541,3 +541,11 @@ obj.hasOwnProperty('p') // true
 obj.hasOwnProperty('toString') // false
 ```
 上面代码中，对象obj自身具有p属性，所以返回true。toString属性是继承的，所以返回false。
+
+
+## 参考
+
+[avaScript 标准库-object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+
+
