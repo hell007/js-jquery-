@@ -543,6 +543,12 @@ obj.hasOwnProperty('toString') // false
 上面代码中，对象obj自身具有p属性，所以返回true。toString属性是继承的，所以返回false。
 
 
+## 拓展
+
+#### 包装对象
+
+Array（数组）和 Function（函数）本质上都是对象，就连三种原始类型的值 — — Number（数值）、String（字符串）、Boolean（布尔值） — — 在一定条件下，也会自动转为对象，也就是原始类型的包装对象。
+
 ## 参考
 
 [javaScript 标准库-object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
