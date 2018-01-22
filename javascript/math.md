@@ -2,6 +2,35 @@
 
 ECMAScript 还为保存数学公式和信息提供了一个公共位置，即 Math 对象。与我们在 JavaScript 直接编写的计算功能相比， Math 对象提供的计算功能执行起来要快得多。 Math 对象中还提供了辅助完成这些计算的属性和方法。
 
+### 属性
+
+```
+Math.E
+欧拉常数，也是自然对数的底数, 约等于 2.718.
+
+Math.LN2
+2的自然对数, 约等于0.693.
+
+Math.LN10
+10的自然对数, 约等于 2.303.
+
+Math.LOG2E
+以2为底E的对数, 约等于 1.443.
+
+Math.LOG10E
+以10为底E的对数, 约等于 0.434.
+
+Math.PI
+圆周率，一个圆的周长和直径之比，约等于 3.14159.
+
+Math.SQRT1_2
+1/2的平方根, 约等于 0.707.
+
+Math.SQRT2
+2的平方根,约等于 1.414.
+
+```
+
 -  min() 和 max() 方法
 -  舍入方法
 -  random() 方法
@@ -76,3 +105,10 @@ Math.sqrt(num)  返回 num 的平方根
 Math.sin(x)     返回 x 的正弦值
 Math.acos(x)    返回 x 的反余弦值
 Math.tan(x)     返回 x 的正切值
+
+
+##  参考文档
+
+[JavaScript 标准库-math](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math)
+
+
