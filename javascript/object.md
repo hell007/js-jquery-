@@ -545,7 +545,7 @@ obj.hasOwnProperty('toString') // false
 
 ## 参考
 
-[avaScript 标准库-object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
+[javaScript 标准库-object](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object)
 
 
 
