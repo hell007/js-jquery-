@@ -40,6 +40,9 @@
 
 [移动端高清、多屏适配方案](./移动端高清、多屏适配方案.md)
 
+[iphonex的web适配](https://www.cnblogs.com/lolDragon/p/7795174.html)
+
+[iphonex的web适配](http://blog.csdn.net/u011250873/article/details/78637449)
 
 
 
