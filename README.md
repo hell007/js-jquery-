@@ -38,6 +38,10 @@
 
 [倒计时](./倒计时.html)
 
+[css3loading]
+
+[loading](https://www.html5tricks.com/demo/css3-loading-cool-styles/index.html)
+
 [移动端高清、多屏适配方案](./移动端高清、多屏适配方案.md)
 
 [iphonex的web适配](https://www.cnblogs.com/lolDragon/p/7795174.html)
