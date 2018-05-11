@@ -149,6 +149,10 @@ input{height:40px;margin-bottom:20px;}
 
 <script type="text/javascript" src="js/jquery.min.1.8.3.js" ></script>
 <script>
+/**
+* 修复click操作导致的NaN
+* 修复click操作导致的移动
+*/
 window.LCalendar = (function() {
     var MobileCalendar = function() {
         this.gearDate;
