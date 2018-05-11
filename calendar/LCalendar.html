@@ -119,6 +119,10 @@ to{transform:translate3d(0,0,0)}
 .time_roll>div .gear,.ym_roll>div .gear{width:100%;text-indent:-70%}
 .time_roll>div:nth-child(1) .gear,.ym_roll>div:nth-child(1) .gear{width:100%;text-indent:10%}
 .tooth{height:2em;line-height:2em;text-align:center}	
+
+
+/*no important*/
+input{height:40px;margin-bottom:20px;}
 </style>
 <script type="text/javascript" src="js/flexible720.js" ></script>
 </head>
@@ -657,6 +661,7 @@ window.LCalendar = (function() {
                 target["pos_" + target.id] = target["o_d_" + target.id] + f;
                 target.style["-webkit-transform"] = 'translate3d(0,' + target["pos_" + target.id] + 'em,0)';
                 target.setAttribute('top', target["pos_" + target.id] + 'em');
+                console.log(669,target["pos_" + target.id])
                 if (e.targetTouches[0].screenY < 1) {
                     gearTouchEnd(e);
                 };
@@ -701,7 +706,9 @@ window.LCalendar = (function() {
                 target["int_" + target.id] = setInterval(function() {
                     var pos = target["pos_" + target.id];
                     var speed = target["spd_" + target.id] * Math.exp(-0.03 * d);
-                    pos += speed;
+                    //console.log(709,speed);
+                    //console.log(710,parseFloat(target.getAttribute('top').replace(/em/g, "")));
+                    pos += Math.abs(speed) > 0 ? speed : parseFloat(target.getAttribute('top').replace(/em/g, ""));
                     if (Math.abs(speed) > 0.1) {} else {
                         var b = Math.round(pos / 2) * 2;
                         pos = b;
@@ -803,6 +810,7 @@ window.LCalendar = (function() {
                             break;
                         default:
                     }
+                    //console.log(813,target["pos_" + target.id])
                     target["pos_" + target.id] = pos;
                     target.style["-webkit-transform"] = 'translate3d(0,' + pos + 'em,0)';
                     target.setAttribute('top', pos + 'em');
@@ -867,8 +875,6 @@ window.LCalendar = (function() {
                 time_hh = time_hh > 9 ? time_hh : '0' + time_hh;
                 var time_mm = parseInt(Math.round(_self.gearDate.querySelector(".time_mm").getAttribute("val")));
                 time_mm = time_mm > 9 ? time_mm : '0' + time_mm;
-                //edit
-                _self.input.value  = 12345;
                 _self.input.value = (date_yy % passY + _self.minY) + "-" + date_mm + "-" + date_dd + " " + (time_hh.length < 2 ? "0" : "") + time_hh + (time_mm.length < 2 ? ":0" : ":") + time_mm;
                 closeMobileCalendar(e);
             }
@@ -923,6 +929,7 @@ calendarym.init({
     'minDate': '1900-1',
     'maxDate': new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
 });
+
 </script>	
 
 </body>
