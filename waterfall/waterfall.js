@@ -329,3 +329,19 @@ $(function(){
 	
 	window.WaterFall = WaterFall;
 }();
+
+
+/**
+* jquery
+*/
+$(window).on("scroll",function(){
+    // 判断窗口的滚动条是否接近页面底部
+    if( $(document).scrollTop() + $(window).height() > $(document).height() - 10 ){
+	if(currentPage != totalPage&&flag){
+		currentPage = currentPage +1;
+		//loading show()
+		//ajax()
+	}
+    }
+});
+
