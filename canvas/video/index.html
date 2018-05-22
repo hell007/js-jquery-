@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<!--<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">-->
+<!--上面注释此行必须重现打开网页，刷新无效-->
+<script type="text/javascript">
+var phoneWidth = parseInt(window.screen.width);
+var phoneScale = phoneWidth/640;
+var isIphone = false;
+var ua = navigator.userAgent;
+if (/Android (\d+\.\d+)/.test(ua)){
+	var version = parseFloat(RegExp.$1);
+	// andriod 2.3
+	if(version>2.3){
+		document.write('<meta name="viewport" content="width=640, initial-scale='+phoneScale+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+		// andriod 2.3以上
+	}else{
+		document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+	}
+// 其他系统
+} else {
+	isIphone = true;
+	document.write('<meta name="viewport" content="width=640, initial-scale='+phoneScale+',minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', user-scalable=no, target-densitydpi=device-dpi">');
+}
+</script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="renderer" content="webkit">
+<title>画布使用案例</title>
+
+<style type="text/css">
+*{margin:0;padding:0;}
+html,body,section{width:100%;height:100%;}
+body{background:#000;}
+section{display:none;position:absolute;left:0px;top:0px;overflow:hidden;}
+.canvas{position:absolute;top:0px;}
+/*image_box*/
+.image_mask{float:left;width:50%;height:100%;background:#000;opacity:0.5; }
+
+
+</style>
+</head>
+<body>
+<section id="image_box" class="image_box">
+	<canvas id="imageCanvas" class="canvas"></canvas>
+	<div class="image_mask"></div>
+	<div class="image_mask"></div>
+</section>
+
+<section id="video_box">
+	<div class="video-wrapper js-video-wrapper">
+		<div class="video-responsive">
+			<audio>
+				<source src="" type="video/mp4" id="p_audio">
+			</audio>
+	        <video class="video js-video" webkit-playsinline="" muted style="display: none;">
+				<source src="" type="video/mp4" id="p_video">
+			</video>
+			<canvas class="canvas js-canvas" ></canvas>
+			<div class="video-timeline js-timeline">
+				<div class="video-timeline-passed js-timeline-passed">
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script src="../library/jquery-2.1.4.js" type="text/javascript" charset="utf-8"></script>
+<script src="canvas-video-player.js" type="text/javascript" charset="utf-8"></script>
+<script src="app.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	//调用画布绘制图片，图片动画等
+	//App.handleImageCanvas();
+	
+	App.handleVideoCanvas();
+	
+	
+//	var canvasPlayer = new CanvasPlayer({
+//		videoSelector: '.js-video',
+//		canvasSelector: '.js-canvas',
+//		hideVideo: true,
+//		audio: true,
+//	});
+	
+})
+</script>
+</body>
+</html>
