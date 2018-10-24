@@ -167,8 +167,8 @@ a：字符串拼接。将表达式嵌入字符串中进行拼接，用 ` 和${}`
 b.在ES5时我们通过反斜杠来做多行字符串拼接。ES6反引号 ` ... ` 直接搞定
 
     // es5
-    var msg = "Hi \
-    man!";
+    var msg = "hello \
+    world!";
 
     // es6
     const template = `<div>
