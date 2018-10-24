@@ -381,6 +381,8 @@ next方法不仅返回值，它返回的对象具有两个属性：done和value�
 
 1、Array.prototype.includes
 
+a.基本用法
+
     let arr = ['react', 'angular', 'vue']
 
     // Correct
@@ -399,15 +401,229 @@ next方法不仅返回值，它返回的对象具有两个属性：done和value�
 
     jQuery: $.inArray
     Underscore.js: _.contains
+    
+b.接收俩个参数：要搜索的值和搜索的开始索引
+
+    ['a', 'b', 'c', 'd'].includes('b')         // true
+    ['a', 'b', 'c', 'd'].includes('b', 1)      // true
+    ['a', 'b', 'c', 'd'].includes('b', 2)      // false
 
 
-2、Exponentiation Operator(求幂运算
+c.与ES6中的indexOf()比较
 
-    let a = 7 ** 12
-    let b = 2 ** 7
-    console.log(a === Math.pow(7,12)) // true
-    console.log(b === Math.pow(2,7)) // true
+includes()返回的是布尔值，能直接判断数组中存不存在这个值，而indexOf()返回的是索引
+
+    let demo = [1, NaN, 2, 3]
+
+    demo.indexOf(NaN)        //-1
+    demo.includes(NaN)       //true
+
+
+**总结：** 由于它对NaN的处理方式与indexOf不同，假如你只想知道某个值是否在数组中而并不关心它的索引位置，建议使用includes()。
+如果你想获取一个值在数组中的位置，那么你只能使用indexOf方法
+
+
+2、求幂运算
+
+    3 ** 2  //9
+    效果同
+    Math.pow(3, 2) //9
+   
+    
     
  
 ## ES8 特性
+
+1、![async await](https://github.com/hell007/front-end-developer/blob/master/promise-async-await-fetch.md)
+
+
+2、Object.entries()
+
+将一个对象中可枚举属性的键名和键值按照二维数组的方式返回。
+
+若对象是数组，则会将数组的下标作为键值返回
+
+    Object.entries({ one: 1, two: 2 })    //[['one', 1], ['two', 2]]
+    Object.entries([1, 2])                //[['0', 1], ['1', 2]]
+
+- 注意
+
+a.若是键名是Symbol，编译时会被自动忽略
+
+    Object.entries({[Symbol()]:1, two: 2})  //[['two', 2]]
+
+b.entries()返回的数组顺序和for循环一样，即如果对象的key值是数字，则返回值会对key值进行排序，返回的是排序后的结果
+
+    Object.entries({ 2: 'a', 3: 'b', 1: 'c' })    //[['1', 'c'], ['2', 'a'], ['3', 'b']]
+
+c.利用Object.entries()创建一个真正的Map
+
+    var obj = { foo: 'bar', baz: 42 };
+    
+    var map1 = new Map([['foo', 'bar'], ['baz', 42]]); //原本的创建方式
+    var map2 = new Map(Object.entries(obj));    //等同于map1
+
+    console.log(map1);// Map { foo: "bar", baz: 42 }
+    console.log(map2);// Map { foo: "bar", baz: 42 }
+
+- 自定义Object.entries()
+
+Object.entries的原理其实就是将对象中的键名和值分别取出来然后推进同一个数组中
+
+    //自定义entries()
+    var obj = { foo: 'bar', baz: 42 };
+    
+    function myEntries(obj) {
+        var arr = []
+        for (var key of Object.keys(obj)) {
+            arr.push([key, obj[key]])
+        }
+        return arr
+    }
+    console.log(myEntries(obj))
+    
+    //Generator版本
+    function* genEntryies(obj) {
+        for (let key of Object.keys(obj)) {
+            yield [key, obj[key]]
+        }
+    }
+    var entryArr = genEntryies(obj);
+    console.log(entryArr.next().value) //["foo", "bar"]
+    console.log(entryArr.next().value) //["baz", 42]
+
+
+3.Object.values() 
+
+只返回自己的键值对中属性的值。它返回的数组顺序，也跟Object.entries()保持一致
+
+    Object.values({ one: 1, two: 2 })            //[1, 2]
+    Object.values({ 3: 'a', 4: 'b', 1: 'c' })    //['c', 'a', 'b']
+
+
+vs 与Object.keys() ES6中的Object.keys()返回的是键名
+
+    var obj = { foo: 'bar', baz: 42 };
+    console.log(Object.keys(obj)) //["foo", "baz"]
+    console.log(Object.values(obj)) //["bar", 42]
+    
+    //Object.keys()的作用就类似于for...in
+    function myKeys() {
+        let keyArr = []
+        for (let key in obj1) {
+            keyArr.push(key)
+            console.log(key)
+        }
+        return keyArr
+    }
+    console.log(myKeys(obj1)) //["foo", "baz"]
+
+entries()、values()总结
+
+    var obj = { foo: 'bar', baz: 42 };
+    console.log(Object.keys(obj)) //["foo", "baz"]
+    console.log(Object.values(obj)) //["bar", 42]
+    console.log(Object.entries(obj)) //[["foo", "bar"], ["baz", 42]]
+
+
+4、字符串填充
+
+padStart()和padEnd()
+
+String.padStart(targetLength, padding)
+
+参数：字符串目标长度和填充字段
+
+
+    'Vue'.padStart(10)           //'       Vue'
+    'React'.padStart(10)         //'     React'
+    'JavaScript'.padStart(10)    //'JavaScript'
+
+- 注意：
+
+填充函数只有在字符长度小于目标长度时才有效,而且目标长度如果小于字符串本身长度时，字符串也不会做截断处理，只会原样输出
+
+    'Vue'.padEnd(10, '_*')           //'Vue_*_*_*_'
+    'React'.padEnd(10, 'Hello')      //'ReactHello'
+    'JavaScript'.padEnd(10, 'Hi')    //'JavaScript'
+    'JavaScript'.padEnd(8, 'Hi')     //'JavaScript'
+
+5、Object.getOwnPropertyDescriptors()
+
+该方法会返回目标对象中所有属性的属性描述符，该属性必须是对象自己定义的，不能是从原型链继承来的。
+
+    var obj = {
+            id:  1,
+            name: 'demo',
+            get gender() {
+                console.log('gender')
+            },
+            set grad(d) {
+                console.log(d)
+            }
+        }
+        
+     console.log(Object.getOwnPropertyDescriptors(obj))
+      
+      
+6、函数参数支持尾部逗号
+
+该特性允许我们在定义或者调用函数时添加尾部逗号而不报错
+
+    let foo = function (
+        a,
+        b,
+        c,) {
+        console.log('a:', a)
+        console.log('b:', b)
+        console.log('c:', c)
+    }
+    
+    foo(1, 3, 4, )
+
+    //输出结果为：
+    a: 1
+    b: 3
+    c: 4
+
+7、修饰器Decorator
+
+
+
+
+https://www.jianshu.com/p/13c5d002478b
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
