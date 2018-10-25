@@ -591,7 +591,11 @@ String.padStart(targetLength, padding)
 
 
 
-https://www.jianshu.com/p/13c5d002478b
+
+
+## 参考地址
+
+![ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/proposals)
 
 
 
