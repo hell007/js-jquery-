@@ -595,7 +595,7 @@ String.padStart(targetLength, padding)
 
 ## 参考地址
 
-![ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/proposals)
+[ECMAScript 6 入门](http://es6.ruanyifeng.com/#docs/proposals)
 
 
 
