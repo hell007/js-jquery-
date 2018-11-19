@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <!--定义一些混入方法，供给其他pug使用-->
+  <!--调用 _snippets.pug 里面的head()混入方法-->
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="google" value="notranslate">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no,email=no,address=no,date=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link rel="stylesheet" type="text/css" href="static/vendors/picker/datepicker.css">
+  <title>title</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <style type="text/css">
+    /*no important*/
+
+    input {
+      height: 40px;
+      margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div style="margin-top: 30px; font-size: 14px; text-align: center;">
+      <div id="demo1">
+        <input id="demo1-input" type="text" readonly placeholder="日期选择特效" data-lcalendar="2016-05-11,2016-05-11" />
+      </div>
+      <div id="demo2">
+        <input id="demo2-input" type="text" readonly placeholder="日期和时间选择特效" value="2016-05-11 17:44" data-lcalendar="2016-05-11,2016-05-11" />
+      </div>
+      <div id="demo3">
+        <input id="demo3-input" type="text" readonly placeholder="时间选择特效" />
+      </div>
+      <div id="demo4">
+        <input id="demo4-input" type="text" readonly placeholder="年月选择特效" />
+      </div>
+    </div>
+  </main>
+  <script src="static/vendors/jquery/jquery-3.3.1.min.js"></script>
+  <script src="static/scripts/common.js"></script>
+  <script src="static/vendors/picker/datepicker.min.js"></script>
+  <script>var calendar = new LCalendar()
+calendar.init({
+  trigger: '#demo1', //标签id
+  input: '#demo1-input', //显示值的input的id  解决移动点击input触发弹出软键盘
+  type: 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+  minDate: '1900-1-1', //最小日期
+  maxDate:
+    new Date().getFullYear() +
+    '-' +
+    (new Date().getMonth() + 1) +
+    '-' +
+    new Date().getDate() //最大日期
+})
+var calendardatetime = new LCalendar()
+calendardatetime.init({
+  trigger: '#demo2',
+  input: '#demo2-input',
+  type: 'datetime'
+})
+var calendartime = new LCalendar()
+calendartime.init({
+  trigger: '#demo3',
+  input: '#demo3-input',
+  type: 'time'
+})
+var calendarym = new LCalendar()
+calendarym.init({
+  trigger: '#demo4',
+  input: '#demo4-input',
+  type: 'ym',
+  minDate: '1900-1',
+  maxDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
+})
+</script>
+</body>
+</html>
