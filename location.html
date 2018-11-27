@@ -11,7 +11,7 @@
 
 <!--<div id="container" style="width:500px;height:300px;"></div>-->
 
-<script type="text/javascript" src="../library/jquery-1.12.0.js" ></script>
+<script type="text/javascript" src="static/vendors/jquery/jquery-1.12.4.min.js" ></script>
 <script>
 //用户位置定位   使用geolocation定位 参考api http://lbs.amap.com/api/javascript-api/reference/location
 /**
@@ -23,8 +23,8 @@
 		this.config = {
 			container: 'container',//Dom id
 			cityName: null, //当前城市
-   			localLng: null,//经度 
-    		localLat: null//纬度
+ 			localLng: null,//经度 
+  		localLat: null//纬度
 		};
 		this.config = $.extend(this.config, cfg || {} );
 		this.map = {};
@@ -76,12 +76,12 @@
 			//成功匿名回调
 			function onComplete(data) {
 				//初始化本地经纬度
-		        self.config.localLng = data.position.getLng();
-		        self.config.localLat = data.position.getLat();
-		        //获取地市加载列表信息
-		        self.geolocation.getCityInfo(function(status,result){
-		        	self.config.cityName = result.city;
-		        })
+        self.config.localLng = data.position.getLng();
+        self.config.localLat = data.position.getLat();
+        //获取地市加载列表信息
+        self.geolocation.getCityInfo(function(status,result){
+        	self.config.cityName = result.city;
+        })
 			}
 			//失败匿名回调
 			function onError() {
@@ -115,13 +115,13 @@
 	GaodeMap.prototype.getDistance = function(lng, lat, callback) { 
 		var self = this;
 		self.initMap(function(){
-            var lnglat = new AMap.LngLat(self.config.localLng, self.config.localLat);
-            if (lng != "" && lat != "") {
-                var dist = lnglat.distance([lng, lat]);
-                var range = Math.floor(dist / 10) / 100;
-                if(callback && typeof callback === 'function') callback(range);
-            }
-        });
+      var lnglat = new AMap.LngLat(self.config.localLng, self.config.localLat);
+      if (lng != "" && lat != "") {
+        var dist = lnglat.distance([lng, lat]);
+        var range = Math.floor(dist / 10) / 100;
+        if(callback && typeof callback === 'function') callback(range);
+      }
+	  });
 	}
 		
 	window.GaodeMap = GaodeMap;	
@@ -135,6 +135,7 @@ $(function(){
 	gaodeMap.getDistance(obj.lng, obj.lat,function(data){
 		$("#distance").html("获取距离=="+data);
 		console.log("getDistance==",data)
+		console.log("getDistance==",gaodeMap)
 	});
 })
 </script>
