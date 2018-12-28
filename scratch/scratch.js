@@ -59,12 +59,14 @@
   }
 
   var SCRATCH_MIN_PERCENTAGE = 0.4
+  // 打包图片可以在非服务器下查看效果不报错
   // var SCRATCH_COVER_IMG = __inline('../images/scratch/scratch-cover.png?__inline')
   var SCRATCH_CANVAS_CLASS = 'scratch-item-canvas'
   var SCRATCH_LINE_WIDTH = 15
 
   function scratch(el, onInited) {
     var container = $(el).empty()
+    // 动态获取利于图片多样性，需要服务器环境下查看
     var SCRATCH_COVER_IMG = container.attr('data-cover')
     var canvas = $('<canvas>')
       .addClass(SCRATCH_CANVAS_CLASS)
@@ -76,6 +78,7 @@
 
     var isScratched = throttle(function() {
       var data = context.getImageData(0, 0, width, height).data
+
       var leftPoints = 0
       var totalPoints = data.length / 4
 
@@ -93,7 +96,7 @@
         return
       }
       width = container.width()
-      height = container.height()
+      height = 124 //container.height()
 
       canvas.width = width * ratio
       canvas.height = height * ratio
@@ -108,8 +111,6 @@
         context.lineCap = 'round'
       })
     }
-
-
 
     var lastPostion
     var isMouseDown
