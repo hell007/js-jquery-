@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=0, user-scalable=0, minimum-scale=1, maximum-scale=1">
+<meta charset="UTF-8">
+<title>H5 Canvas 刮刮乐</title>
+<style type="text/css">
+  @charset "UTF-8";
+
+@keyframes btwc {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+html,body {
+    padding: 0;
+    margin: 0;
+    background-color: #E2E2E2;
+}
+
+.ggl-wrapper {
+    padding: 20px;
+}
+
+.scratch-ct {
+    padding: 10px;
+    background-color: #FFF;
+}
+
+.scratch-ct .inner-ct {
+    position: relative;
+}
+
+.scratch-ct .content-ct {
+    min-height: 100px;
+}
+
+.scratch-ct .scratch-canvas {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+}
+
+.scratch-ct .cav-cover {
+    position: absolute;
+    z-index: 999;
+    left: 0;
+    right: 0;
+    top: 0;
+    min-height: 100px;
+    background: url(../img/bg_1.png) repeat left top;
+    background-size: cover;
+}
+
+.scratch-ct .start-gg-bt {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    line-height: 40px;
+    left: 50%;
+    top: 50%;
+    margin-left: -75px;
+    margin-top: -30px;
+    color: #FFF;
+    font-size: 20px;
+    text-align: center;
+    background: url(../img/button_start.png) no-repeat center center;
+    background-size: contain;
+}
+
+.scratch-ct .notice-gg-times {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    margin-top: 10px;
+    color: #8f6f06;
+    font-size: 14px;
+    text-align: center;
+}
+
+
+
+.gift-cover {
+    width: 100%;
+}
+
+.operator-ct {
+    height: 40px;
+    padding-top: 15px;
+}
+
+.gift-show-ct .show-inner.normal .go-to-bt {
+    -webkit-animation: btwc infinite 1s ease-in-out;
+    -o-animation: btwc infinite 1s ease-in-out;
+    animation: btwc infinite 1s ease-in-out;
+    display: block;
+    height: 40px;
+    line-height: 35px;
+    margin: auto;
+    font-size: 18px;
+    text-decoration: none;
+    color: #FFF;
+    text-align: center;
+    background: url(../img/go-to-bt.png) no-repeat center center;
+    background-size: auto 100%;
+}
+</style>
+</head>
+<body>
+<div class="main">
+  <div class="ggl-wrapper"> 
+    <div id="scratch-ct" class="scratch-ct">
+      <div id="scratch-inner" class="inner-ct">
+          <div id="content-ct" class="content-ct" style="visibility: hidden;">
+            <img id="gift-cover" class="gift-cover" src="img/gift-cover.jpg" alt="">
+          </div>
+          <canvas id="scratch-canvas" class="scratch-canvas"></canvas>
+          <div id="cav-cover" class="cav-cover">
+            <div id="start-gg-bt" class="start-gg-bt">
+              开始刮奖
+            </div>
+            <div class="notice-gg-times">
+              今日还有 <span style="color:red">8</span> 次刮奖机会<br>
+            </div>
+          </div>
+      </div>
+    </div> 
+  </div>
+</div>
+<script src="./js/scratch2.js"></script>
+<script>
+var contentCt = document.getElementById('content-ct');
+var scratchInner = document.getElementById('scratch-inner');
+var cavCover = document.getElementById('cav-cover');
+var startGgBt = document.getElementById('start-gg-bt');
+var giftCover = document.getElementById('gift-cover');
+var closeBt = document.getElementById('close-bt');
+var newImg = document.createElement('img');
+
+
+newImg.addEventListener('load', function(){
+
+    var scratch = new Scratch({
+        canvasId: 'scratch-canvas',
+        //imageBackground: './img/gift-cover.jpg',
+        //pictureOver: './img/gray-gg.jpg',
+        cursor: {
+            // png: 'piece.png',
+            // cur: 'piece.cur',
+            x: '20',
+            y: '17'
+        },
+        sceneWidth: contentCt.clientWidth,
+        sceneHeight: contentCt.clientHeight,
+        radius: 20,
+        nPoints: 300,
+        percent: 50,
+        onCovered: function() {
+            scratchInner.style.height = contentCt.clientHeight +'px';
+            cavCover.style.width = contentCt.clientWidth +'px';
+            cavCover.style.height = contentCt.clientHeight +'px';
+            startGgBt.addEventListener('click', function(){
+                cavCover.style.display = 'none';
+                contentCt.style.visibility = 'visible';
+            });
+            
+        },
+        callback: function () {
+            console.log("已经刮卡")
+        },
+        pointSize: { x: 3, y: 3}
+    });
+
+});
+
+
+newImg.src = giftCover.src;
+
+
+</script>
+</body>
+</html>
