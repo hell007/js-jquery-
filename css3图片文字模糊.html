@@ -1,0 +1,48 @@
+&-item {
+		display:block;
+		float:left;
+		width:220px;
+		min-height:318px;
+		padding:10px;
+		margin-right:20px;
+		margin-bottom:20px;
+		border:1px solid $color-border-gray;
+		border-radius:8px;
+		background:$color-white;
+
+		&:nth-child(5n) {
+			margin-right:0;
+		}
+
+		p {
+			margin-bottom:10px;
+		}
+
+		.i-pic {
+			width:200px;
+			height:200px;
+			overflow:hidden;
+			transform-style: preserve-3d;  //方法1
+		}
+
+		.i-name {
+			@include ellipsis(1,22px);
+		}
+
+		.i-price {
+			color:$color-secondary;
+		}
+
+		img {
+			transform:scale(0.9);
+			transition:transform .5s ease-out .1s;
+			cursor:pointer;
+			backface-visibility:hidden; //方法2
+		}
+
+		&:hover {
+			img {
+				transform:scale(1);
+			}
+		}
+	}
