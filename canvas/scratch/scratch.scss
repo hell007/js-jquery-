@@ -1,0 +1,200 @@
+@import "global";
+
+.scratch {
+
+	&-more {
+		display:inline-block;
+    height:30px;
+    padding:0px 10px;
+    line-height:30px;
+    border:0;
+    border-radius:4px;
+    font-size:14px;
+    color:#21c2b8;
+    background-color:#fff;
+    cursor:pointer;
+	}
+
+	&-title {
+		font-size:20px;
+		color:$color-primary;
+	}
+
+	&-box {
+		margin-bottom:20px;
+	}
+
+	&-list {
+		display:flex;
+		flex-direction:row;
+		align-items:center;
+		flex-wrap:wrap;
+		padding:10px;
+		margin-bottom:0;
+		background-color:#edf0f6;
+	}
+
+	&-item {
+		position: relative;
+		width:33%;
+		min-height:150px;
+		background-image:url(../images/scratch/icon-scratch-bg.png);
+		background-size:100%;
+		cursor:pointer;
+
+		&-canvas {
+			display: block;
+	    width: 100%;
+	    height: 100%;
+		}
+
+		&-prize {
+			position: absolute;
+	    left: 50%;
+	    top: 50%;
+	    z-index:3;
+	    width:90%;
+	    height:122px;
+	    margin-left:-46%;
+	    margin-top:-65px;
+	    overflow:hidden;
+		}
+
+		&-stage {
+			position: absolute;
+			left: 50%;
+	    top: 50%; 
+	    z-index:5;
+	    width:92%;
+	    height:124px;
+	    margin-left:-47%;
+	    margin-top:-66px;
+
+	    .card {
+	    	width:100%;
+	    	height:100%;
+	    	background-image:url(../images/scratch/scratch-pic1.png);
+	    	background-size:100%;
+
+	    	&-name {
+	    		padding-top:10px;
+	    		font-family:"方正正大黑体";
+	    		font-size:28px;
+	    		color:#ec1d45;
+	    		text-align:center;
+	    		@include ellipsis(1,52px);
+	    	}
+	    }
+
+	    &-2 {
+
+	    	.card {
+		    	background-image:url(../images/scratch/scratch-pic2.png);
+
+		    	&-name {
+		    		color:#fdd595;
+		    	}
+		    }
+	    }
+		}
+
+		&-prize {
+		  display: flex;
+		  flex-direction:column;
+		  align-items: center;
+		  justify-content: center;
+
+		  b {
+		  	width:100%;
+		  	padding:0 10px;
+		  	font-size:22px;
+		  	@include ellipsis(1,33px);
+		  }
+
+		  p {
+		  	margin-bottom:5px;
+		  }
+
+		  .notice {
+		  	width:100%;
+		  	font-size:10px;
+		  	padding:0 10px;
+		  	text-align:left;
+		  	height:54px;
+		  	@include ellipsis(3,18px);
+		  }
+
+		  .time {
+		  	font-size:12px;
+		  	color:#666;
+		  }
+
+		  .tag {
+		  	display:inline-block;
+		  	position:absolute;right:0;
+		  	top:0;
+		  	right:0;
+		  	z-index:6;
+		  	width:36px;
+		  	height:40px;
+		  	background-image:url(../images/scratch/icon-scratch-tag.png);
+		  	background-size:100%;
+		  	text-indent:-9999em;
+		  }
+
+		  &-1,
+		  &-2 {
+		  	border:2px solid #db3535;
+		  	border-radius:4px;
+		  	background-size:100%;
+		  	background-size:cover;
+		  }
+
+		  &-1 {
+		  	background-image:url(../images/scratch/icon-scratch-prize1-bg.png);
+		  	color:#db3535;
+		  }
+
+		  &-2 {
+		  	background-image:url(../images/scratch/icon-scratch-prize2-bg.png);
+		  	color:#fff;
+
+		  	.time {
+			  	color:#fff;
+			  }
+		  }
+		}
+	}
+
+	&-note {
+		padding:10px;
+		background-color:#edf0f6;
+	}
+
+	&-panel {
+		text-align:center;
+
+		.u-tab-panel__tab {
+			border:0;
+			padding-bottom:5px;
+			margin:0 20px 20px 0;
+			font-size:18px;
+
+			&_current {
+				color:$color-primary;
+				border-bottom:3px solid $color-primary;
+			}
+		}
+
+		.u-tab-panel__content {
+			padding:20px 0;
+			background-color:#edf0f6;
+
+			.scratch-list {
+				margin-bottom:16px;
+			}
+		}
+	}
+
+
+}
