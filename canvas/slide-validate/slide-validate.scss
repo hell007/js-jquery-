@@ -1,0 +1,150 @@
+
+@import "global";
+
+.u-slide {
+
+	&-validate {
+		position:relative;
+		overflow:hidden;
+		width:404px;
+		height:360px;
+		margin:120px auto;
+		padding-top:50px;
+		text-align:center;
+		border:1px solid #e5e5e5;
+		border-radius:4px;
+		box-shadow:0 4px 18px rgba(0,0,0,.2);
+		-moz-user-select: none;
+    -webkit-user-select: none;
+	}
+
+	&-box {
+		display:inline-block;
+	}
+
+	&-picture {
+		position:relative;
+		overflow:hidden;
+		
+		&-box {
+			position:relative;
+			padding:16px 16px 28px;
+			border:1px solid #ddd;
+			background:#f2ece1;border-radius:16px;
+		}
+	}
+
+	&-refresh {
+		position:absolute;
+		left:0;
+		bottom:0;
+		height:30px;
+		padding:0 16px;
+
+		&:before {
+			display:inline-block;
+			content:'';
+			width:24px;
+			height:24px;
+			margin:3px 0;
+			background-image:url(../images/slide/slide-validate-refresh.png?__inline);
+			background-size:100%;
+			cursor:pointer;
+		}
+	}
+	
+	&-btn {
+		position:absolute;
+		width:38px;
+		height:38px;
+		left:0;
+		top:1px;
+		z-index:12;
+		cursor:pointer;
+		background-image:url(../images/slide/slide-validate-btn.png?__inline);
+		transition:inherit;
+
+		&.move {
+			background-image:url(../images/slide/slide-validate-btn2.png?__inline);
+		}
+
+		&-box {
+			position:relative;
+			margin:auto;
+		}
+
+		&-area {
+			border:1px solid #c3c3c3;
+			border-radius:24px;
+			background:#ece4dd;
+			box-shadow:0 1px 1px rgba(12,10,10,0.2) inset;
+		}
+
+		&-text {
+			height:36px;
+			line-height:36px;
+			padding-right:22px;
+			margin:0;
+			text-align:right;
+			font-size:12px;
+			color: #486c80;
+		}
+	}
+
+	&-tips {
+		position:absolute;
+		left:0;
+		bottom:-22px;
+		width:100%;
+		padding:0 8px;
+		margin:0;
+		text-align:left;
+		font-size:12px;
+		background:rgba(255,255,255,.9);
+		transition:all .4s;
+
+		&.on {
+			bottom:0;
+		}
+
+		&-err,
+		&-ok {
+			display:flex;
+			flex-direction:row;
+			align-items:center;
+			margin-bottom:0;
+
+			&:before {
+				display:inline-block;
+				content:'';
+				width:12px;
+				height:12px;
+				margin-right:10px;
+				vertical-align:middle;
+			}
+		}
+
+		&-err {
+			
+			&:before {
+				background-image:url(../images/slide/slide-tips-err.png?__inline);
+			}
+
+			b {
+				color:#f74a42;
+			}
+		}
+
+		&-ok {
+
+			&:before {
+				background-image:url(../images/slide/slide-tips-ok.png?__inline);
+			}
+
+			b {
+				color:#6bd563;
+			}
+		}
+	}
+
+}
