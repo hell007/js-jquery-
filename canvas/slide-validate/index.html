@@ -1,70 +1,79 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
-<link rel="import" href="snippets/base/_head.pug?__inline">
-<link rel="import" href="html/_head.html?__inline">
-<link rel="stylesheet" type="text/css" href="static/styles/slide-validate.scss">
-<title>title</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
+  <!--定义一些混入方法，供给其他pug使用-->
+  <!--调用 _snippets.pug 里面的head()混入方法-->
+  <meta charset="UTF-8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-touch-fullscreen" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="google" value="notranslate">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="robots" content="index,follow">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover">
+  <meta name="format-detection" content="telephone=no,email=no,address=no,date=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <link href="static/styles/common.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="static/styles/slide-validate.css">
+  <title>title</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
 </head>
 <body>
-<main class="container">
-	<div class="u-slide-validate">
-	  <div class="u-slide-box js-slide-box" ></div>
-	</div>
-</main>
-<link rel="import" href="html/_foot.html?__inline">
-<script>
-
-/**
+  <main class="container">
+    <div class="u-slide-validate">
+      <div class="u-slide-box js-slide-box"></div>
+    </div>
+  </main>
+  <script src="static/vendors/jquery/jquery-3.3.1.min.js"></script>
+  <script src="static/scripts/common.js"></script>
+  <script>/**
  * [滑动验证]
  */
-!function SlideValidate(){
+!(function SlideValidate() {
+  function SlideValidate(cfg) {
+    this.config = {
+      container: '.js-slide-box',
+      width: 260,
+      height: 116,
+      picture: [],
+      success: null,
+      error: null
+    }
 
-	function SlideValidate(cfg){
-		this.config = {
-			container: '.js-slide-box',
-			width : 260,
-			height : 116,
-			picture: [],
-			success: null,
-			error: null
-		};
+    this.config = $.extend(this.config, cfg)
 
-		this.config = $.extend(this.config,cfg);
+    this.container = $(this.config.container)
 
-		this.container = $(this.config.container);
+    this.init()
 
-		this.init();
+    return this
+  }
 
-		return this;
-	}
+  SlideValidate.prototype.init = function() {
+    var self = this
+    var w = self.config.width
+    var h = self.config.height
 
-	SlideValidate.prototype.init = function() {
-		var self = this
-		var w = self.config.width;
-		var h = self.config.height;
+    //定义拖动参数
 
-		//定义拖动参数
+    var PL_Size = 48
+    var padding = 20
 
-		var PL_Size = 48;
-		var padding = 20;
+    var MinN_X = padding + PL_Size
+    var MinN_Y = h - padding - PL_Size - PL_Size / 6
+    var MaxN_X = w - padding - PL_Size - PL_Size / 6
+    var MaxN_Y = padding
 
-		var MinN_X = padding + PL_Size;
-		var MinN_Y = h - padding - PL_Size - PL_Size / 6;
-		var MaxN_X = w - padding - PL_Size - PL_Size / 6;
-		var MaxN_Y = padding;
+    var imgRandom = self.randomNum(1, self.config.picture.length)
 
-		var imgRandom = self.randomNum(1, self.config.picture.length);
+    var imgSrc = self.config.picture[imgRandom]
+    var X = self.randomNum(MinN_X, MaxN_X)
+    var Y = self.randomNum(MinN_Y, MaxN_Y)
+    var d = PL_Size / 3
+    var left = -X + 10
 
-		var imgSrc = self.config.picture[imgRandom];
-		var X = self.randomNum(MinN_X, MaxN_X);
-		var Y = self.randomNum(MinN_Y, MaxN_Y);
-		var d = PL_Size / 3;
-		var left = -X + 10;
-
-		var html = `<div class="u-slide-picture-box">
+    var html = `<div class="u-slide-picture-box">
 									<div class="u-slide-picture" style="width:${w}px;">
 										<div>
 											<img src="${imgSrc}" />
@@ -86,236 +95,266 @@
 											<p class="u-slide-btn-text">按住左边滑块，拖动完成上方拼图</p>
 										</div>
 									<div class="u-slide-btn js-slide-btn"></div>
-								</div>`;
-		self.container.html(html);
+								</div>`
+    self.container.html(html)
 
-		// 
-		self.paint(imgSrc, X, Y, d);
+    //
+    self.paint(imgSrc, X, Y, d)
 
-		var isDown = false;//mousedown标记
-		var moveStart = null;
-		if(document.attachEvent) {
-		//ie的事件监听，拖拽div时禁止选中内容，
-		//firefox与chrome已在css中设置过
-		//-moz-user-select: none; -webkit-user-select: none;
+    var isDown = false //mousedown标记
+    var moveStart = null
+    if (document.attachEvent) {
+      //ie的事件监听，拖拽div时禁止选中内容，
+      //firefox与chrome已在css中设置过
+      //-moz-user-select: none; -webkit-user-select: none;
       self.el.attachEvent('onselectstart', function() {
-          return false;
-      });
+        return false
+      })
     }
 
-		// 鼠标按下
-		$('.js-slide-btn').unbind('mousedown').on('mousedown', function(e) {
-			e = e || window.event;
-			isDown = true;//鼠标拖拽启
-			$(this).addClass('move');
-			moveStart = e.pageX;
-		});
+    // 鼠标按下
+    $('.js-slide-btn')
+      .unbind('mousedown')
+      .on('mousedown', function(e) {
+        e = e || window.event
+        isDown = true //鼠标拖拽启
+        $(this).addClass('move')
+        moveStart = e.pageX
+      })
 
-		// 滑动事件
-		$('.js-slide-btn').mousemove(function(e) {
-			e = e || window.event;
-			//鼠标滑动时的距离
-			var moveX = e.pageX;
-			var d = moveX - moveStart;
+    // 滑动事件
+    $('.js-slide-btn').mousemove(function(e) {
+      e = e || window.event
+      //鼠标滑动时的距离
+      var moveX = e.pageX
+      var d = moveX - moveStart
 
-			if (isDown && moveStart !== '') {
-				if (d > 0 && d < (w - padding - PL_Size)) {
-					$(this).css({
-						'left': d + 'px',
-						'transition': 'inherit'
-					});
-					$('#puzzleLost').css({
-						'left': d + 'px',
-						'transition': 'inherit'
-					});
-					$('#puzzleShadow').css({
-						'left': d + 'px',
-						'transition': 'inherit'
-					});
-				}
-			}
-		});
+      if (isDown && moveStart !== '') {
+        if (d > 0 && d < w - padding - PL_Size) {
+          $(this).css({
+            left: d + 'px',
+            transition: 'inherit'
+          })
+          $('#puzzleLost').css({
+            left: d + 'px',
+            transition: 'inherit'
+          })
+          $('#puzzleShadow').css({
+            left: d + 'px',
+            transition: 'inherit'
+          })
+        }
+      }
+    })
 
-		// 鼠标松开
-    $('.js-slide-btn').unbind('mouseup').on('mouseup', function(e) {
-    	e = e || window.event;
-			var moveEnd_X = e.pageX - moveStart;
-			var ver_Num = X - 10;
-			var deviation = 4;
-			var Min_left = ver_Num - deviation;
-			var Max_left = ver_Num + deviation;
+    // 鼠标松开
+    $('.js-slide-btn')
+      .unbind('mouseup')
+      .on('mouseup', function(e) {
+        e = e || window.event
+        var moveEnd_X = e.pageX - moveStart
+        var ver_Num = X - 10
+        var deviation = 4
+        var Min_left = ver_Num - deviation
+        var Max_left = ver_Num + deviation
 
-			if(moveStart !== '') {
-				if (Max_left > moveEnd_X && moveEnd_X > Min_left) {
+        if (moveStart !== '') {
+          if (Max_left > moveEnd_X && moveEnd_X > Min_left) {
+            $('.js-slide-tips')
+              .addClass('on')
+              .find('.u-slide-tips-ok')
+              .prop('hidden', false)
 
-					$('.js-slide-tips').addClass('on').find('.u-slide-tips-ok').prop('hidden',false);
-
-					$('.puzzle-lost-box').prop('hidden',true);
-					$('#puzzleBox').prop('hidden',true);
-
-					setTimeout(function() {
-						$('.js-slide-tips').removeClass('on').find('.u-slide-tips-ok').prop('hidden',true);
-						self.init();
-					}, 2000);
-
-					if (self.config.success && typeof self.config.success === 'function') {
-            self.config.success();
-          }
-
-				} else {
-
-					$('.js-slide-tips').addClass('on').find('.u-slide-tips-err').prop('hidden',false);
-
-					setTimeout(function() {
-						$('.js-slide-tips').removeClass('on').find('.u-slide-tips-err').prop('hidden',true);;
-					}, 2000);
-
-					if (self.config.error && typeof self.config.error === 'function') {
-            
-            self.config.error();
+            $('.puzzle-lost-box').prop('hidden', true)
+            $('#puzzleBox').prop('hidden', true)
 
             setTimeout(function() {
-							$('.js-slide-btn').css({
-								'left': '0',
-								'transition': 'left 0.5s'
-							});
-							$('#puzzleLost').css({
-								'left': '0',
-								'transition': 'left 0.5s'
-							});
-							$('#puzzleShadow').css({
-								'left': '0',
-								'transition': 'left 0.5s'
-							});
-						}, 1000);
+              $('.js-slide-tips')
+                .removeClass('on')
+                .find('.u-slide-tips-ok')
+                .prop('hidden', true)
+              self.init()
+            }, 2000)
+
+            if (
+              self.config.success &&
+              typeof self.config.success === 'function'
+            ) {
+              self.config.success()
+            }
+          } else {
+            $('.js-slide-tips')
+              .addClass('on')
+              .find('.u-slide-tips-err')
+              .prop('hidden', false)
+
+            setTimeout(function() {
+              $('.js-slide-tips')
+                .removeClass('on')
+                .find('.u-slide-tips-err')
+                .prop('hidden', true)
+            }, 2000)
+
+            if (self.config.error && typeof self.config.error === 'function') {
+              self.config.error()
+
+              setTimeout(function() {
+                $('.js-slide-btn').css({
+                  left: '0',
+                  transition: 'left 0.5s'
+                })
+                $('#puzzleLost').css({
+                  left: '0',
+                  transition: 'left 0.5s'
+                })
+                $('#puzzleShadow').css({
+                  left: '0',
+                  transition: 'left 0.5s'
+                })
+              }, 1000)
+            }
           }
-				}
-			}
-			
-			$(this).removeClass('move');
-			moveStart = null;
-			isDown = false;
-    	
-		});
+        }
 
-		$('.js-slide-refresh').on('click', function() {
-			self.init();
-		})
+        $(this).removeClass('move')
+        moveStart = null
+        isDown = false
+      })
 
-	}
+    $('.js-slide-refresh').on('click', function() {
+      self.init()
+    })
+  }
 
-	SlideValidate.prototype.paint = function(imgSrc, X, Y, d) {
+  SlideValidate.prototype.paint = function(imgSrc, X, Y, d) {
+    var self = this
+    var w = self.config.width
+    var h = self.config.height
 
-		var self = this
-		var w = self.config.width;
-		var h = self.config.height;
+    var c = document.getElementById('puzzleBox')
+    var ctx = c.getContext('2d')
 
-		var c = document.getElementById("puzzleBox");
-		var ctx = c.getContext("2d");
+    ctx.globalCompositeOperation = 'xor'
+    ctx.shadowBlur = 10
+    ctx.shadowColor = '#fff'
+    ctx.shadowOffsetX = 3
+    ctx.shadowOffsetY = 3
+    ctx.fillStyle = 'rgba(0,0,0,0.7)'
+    ctx.beginPath()
+    ctx.lineWidth = '1'
+    ctx.strokeStyle = 'rgba(0,0,0,0)'
+    ctx.moveTo(X, Y)
+    ctx.lineTo(X + d, Y)
+    ctx.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
+    ctx.lineTo(X + 3 * d, Y)
+    ctx.lineTo(X + 3 * d, Y + d)
+    ctx.bezierCurveTo(
+      X + 2 * d,
+      Y + d,
+      X + 2 * d,
+      Y + 2 * d,
+      X + 3 * d,
+      Y + 2 * d
+    )
+    ctx.lineTo(X + 3 * d, Y + 3 * d)
+    ctx.lineTo(X, Y + 3 * d)
+    ctx.closePath()
+    ctx.stroke()
+    ctx.fill()
 
-		ctx.globalCompositeOperation = "xor";
-		ctx.shadowBlur = 10;
-		ctx.shadowColor = "#fff";
-		ctx.shadowOffsetX = 3;
-		ctx.shadowOffsetY = 3;
-		ctx.fillStyle = "rgba(0,0,0,0.7)";
-		ctx.beginPath();
-		ctx.lineWidth = "1";
-		ctx.strokeStyle = "rgba(0,0,0,0)";
-		ctx.moveTo(X, Y);
-		ctx.lineTo(X + d, Y);
-		ctx.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);
-		ctx.lineTo(X + 3 * d, Y);
-		ctx.lineTo(X + 3 * d, Y + d);
-		ctx.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);
-		ctx.lineTo(X + 3 * d, Y + 3 * d);
-		ctx.lineTo(X, Y + 3 * d);
-		ctx.closePath();
-		ctx.stroke();
-		ctx.fill();
+    var c_l = document.getElementById('puzzleLost')
+    var c_s = document.getElementById('puzzleShadow')
+    var ctx_l = c_l.getContext('2d')
+    var ctx_s = c_s.getContext('2d')
 
-		var c_l = document.getElementById("puzzleLost");
-		var c_s = document.getElementById("puzzleShadow");
-		var ctx_l = c_l.getContext("2d");
-		var ctx_s = c_s.getContext("2d");
+    var img = new Image()
+    img.src = imgSrc
+    img.onload = function() {
+      ctx_l.drawImage(img, 0, 0, w, h)
+    }
 
-		var img = new Image();
-		img.src = imgSrc;
-		img.onload = function() {
-			ctx_l.drawImage(img, 0, 0, w, h);
-		}
+    ctx_l.beginPath()
+    ctx_l.strokeStyle = 'rgba(0,0,0,0)'
+    ctx_l.moveTo(X, Y)
+    ctx_l.lineTo(X + d, Y)
+    ctx_l.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
+    ctx_l.lineTo(X + 3 * d, Y)
+    ctx_l.lineTo(X + 3 * d, Y + d)
+    ctx_l.bezierCurveTo(
+      X + 2 * d,
+      Y + d,
+      X + 2 * d,
+      Y + 2 * d,
+      X + 3 * d,
+      Y + 2 * d
+    )
+    ctx_l.lineTo(X + 3 * d, Y + 3 * d)
+    ctx_l.lineTo(X, Y + 3 * d)
+    ctx_l.closePath()
+    ctx_l.stroke()
+    ctx_l.shadowBlur = 10
+    ctx_l.shadowColor = 'black'
+    ctx_l.clip()
+    ctx_s.beginPath()
+    ctx_s.lineWidth = '1'
+    ctx_s.strokeStyle = 'rgba(0,0,0,0)'
+    ctx_s.moveTo(X, Y)
+    ctx_s.lineTo(X + d, Y)
+    ctx_s.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
+    ctx_s.lineTo(X + 3 * d, Y)
+    ctx_s.lineTo(X + 3 * d, Y + d)
+    ctx_s.bezierCurveTo(
+      X + 2 * d,
+      Y + d,
+      X + 2 * d,
+      Y + 2 * d,
+      X + 3 * d,
+      Y + 2 * d
+    )
+    ctx_s.lineTo(X + 3 * d, Y + 3 * d)
+    ctx_s.lineTo(X, Y + 3 * d)
+    ctx_s.closePath()
+    ctx_s.stroke()
+    ctx_s.shadowBlur = 20
+    ctx_s.shadowColor = 'black'
+    ctx_s.fill()
+  }
 
-		ctx_l.beginPath();
-		ctx_l.strokeStyle = "rgba(0,0,0,0)";
-		ctx_l.moveTo(X, Y);
-		ctx_l.lineTo(X + d, Y);
-		ctx_l.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);
-		ctx_l.lineTo(X + 3 * d, Y);
-		ctx_l.lineTo(X + 3 * d, Y + d);
-		ctx_l.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);
-		ctx_l.lineTo(X + 3 * d, Y + 3 * d);
-		ctx_l.lineTo(X, Y + 3 * d);
-		ctx_l.closePath();
-		ctx_l.stroke();
-		ctx_l.shadowBlur = 10;
-		ctx_l.shadowColor = "black";
-		ctx_l.clip();
-		ctx_s.beginPath();
-		ctx_s.lineWidth = "1";
-		ctx_s.strokeStyle = "rgba(0,0,0,0)";
-		ctx_s.moveTo(X, Y);
-		ctx_s.lineTo(X + d, Y);
-		ctx_s.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);
-		ctx_s.lineTo(X + 3 * d, Y);
-		ctx_s.lineTo(X + 3 * d, Y + d);
-		ctx_s.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);
-		ctx_s.lineTo(X + 3 * d, Y + 3 * d);
-		ctx_s.lineTo(X, Y + 3 * d);
-		ctx_s.closePath();
-		ctx_s.stroke();
-		ctx_s.shadowBlur = 20;
-		ctx_s.shadowColor = "black";
-		ctx_s.fill();
-	}
+  SlideValidate.prototype.randomNum = function(Min, Max) {
+    var Range = Max - Min
+    var Rand = Math.random()
+    if (Math.round(Rand * Range) == 0) {
+      return Min + 1
+    } else if (Math.round(Rand * Max) == Max) {
+      return Max - 1
+    } else {
+      var num = Min + Math.round(Rand * Range) - 1
+      return num
+    }
+  }
 
-	SlideValidate.prototype.randomNum = function(Min, Max) {
-		var Range = Max - Min;
-		var Rand = Math.random();
-		if (Math.round(Rand * Range) == 0) {
-			return Min + 1;
-		} else if (Math.round(Rand * Max) == Max) {
-			return Max - 1;
-		} else {
-			var num = Min + Math.round(Rand * Range) - 1;
-			return num;
-		}
-	}
-
-	window.SlideValidate = SlideValidate;
-
-}();
-
+  window.SlideValidate = SlideValidate
+})()
 
 // 使用
 
 new SlideValidate({
-	container: '.js-slide-box',
-	width : 260,
-	height : 116,
-	picture: [
+  container: '.js-slide-box',
+  width: 260,
+  height: 116,
+  picture: [
     'static/images/slide/ver-1.png',
     'static/images/slide/ver-2.png',
     'static/images/slide/ver-3.png',
     'static/images/slide/ver-4.png'
   ],
-	success: function() {
-		alert('执行登录函数');
-	},
-	error: function() {
-		alert('错误什么都不执行')
-	}
+  success: function() {
+    alert('执行登录函数')
+  },
+  error: function() {
+    alert('错误什么都不执行')
+  }
 })
-
 </script>
 </body>
 </html>
