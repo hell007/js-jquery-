@@ -20,7 +20,14 @@ canvas {
 </style>
 </head>
 <body>
-  <canvas id="js-credit" width="300" height="300" data-score='8100'></canvas>
+<section>
+  <canvas id="js-credit-1" width="300" height="300" data-score='8100'></canvas>
+</section>
+
+<section>
+  <canvas id="js-credit-2" width="300" height="300" data-score='6400'></canvas>
+</section>
+
 
 <link rel="import" href="html/_foot.html?__inline">
 
@@ -33,7 +40,8 @@ canvas {
       container: 'canvas',
       width: null,
       height: null,
-      score: null
+      score: null,
+      text: '信用额度'
     };
 
     this.config = $.extend(this.config,cfg);
@@ -77,9 +85,10 @@ canvas {
 
     var drawFrame = function() {
       if(score < 0 || score > 10000) {
-          alert('额度只能是0--10000')
-          score = 10000;
+        alert('额度只能是0--10000')
+        score = 10000;
       }
+
       ctx.save();
       ctx.clearRect(0, 0, cWidth, cHeight);
       ctx.translate(cWidth / 2, cHeight / 2);
@@ -102,7 +111,7 @@ canvas {
       ctx.fillStyle = 'white';
       ctx.font = '28px Microsoft yahei';
       ctx.textAlign = 'center';
-      ctx.fillText('信用额度', 0, 50);
+      ctx.fillText(self.config.text, 0, 50);
       ctx.restore();
       
       drawText(credit);
@@ -151,7 +160,12 @@ canvas {
 
 // 使用
 new Dashboard({
-  container: 'js-credit'
+  container: 'js-credit-1'
+})
+
+new Dashboard({
+  container: 'js-credit-2',
+  text: '可用额度',
 })
 
 </script>
