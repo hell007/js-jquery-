@@ -76,7 +76,6 @@ canvas {
       ctx.restore();
     }
   };
-
   // define Circle
   var Circle = function(x, y, tx, ty, r) {
     this.x = x;
@@ -137,13 +136,11 @@ canvas {
       }
     }
   };
-
   // 使用
   var txtCanvas = document.createElement('canvas');
   var txtCtx = txtCanvas.getContext('2d');
   var c = document.getElementById('canvas');
   var ctx = c.getContext('2d');
-
   var img = new Image();
   var WIDTH = c.width = window.innerWidth;
   var HEIGHT = c.height = window.innerHeight;
@@ -168,6 +165,7 @@ canvas {
   ctx.baseline = 'middle';
   imgData = txtCtx.getImageData(0, 120, WIDTH, HEIGHT).data;
 
+  // 绘制circle
   for (var y = 0; y < HEIGHT; y += skip) {
     for (var x = 0; x < WIDTH; x += skip) {
       idx = (x + y * WIDTH) * 4 - 1;
@@ -185,6 +183,7 @@ canvas {
     }
   }
 
+  // 绘制box
   for (var b = 0; b < 10; b++) {
     box = new Box(
       WIDTH * Math.random(),
@@ -213,15 +212,18 @@ canvas {
     /*ctx.fillStyle = 'white';
     ctx.fillText('点击进入', WIDTH / 2, HEIGHT / 2 + 100);*/
     ctx.globalCompositeOperation = 'lighter';
+
     img.src = "static/img/2.jpg";
     img.onload = function() {
       ctx.drawImage(img, 0, 0, WIDTH, HEIGHT);
     }
+
     for (var i = 0, len = circles.length; i < len; i++) {
       circle = circles[i];
       circle.update();
       circle.render(ctx);
     }
+    
     for (var j = 0; j < boxList.length; j++) {
       box = boxList[j];
       box.update();
