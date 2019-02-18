@@ -75,6 +75,7 @@ canvas {
     var radius = 100; //圆的半径
     var deg0 = Math.PI / 9; //每一格20度
     var mum = 100; //数字步长
+
     /*
      * 要求：圆弧走完，数字得自加完，就得确定圆弧走的次数和数字走的次数相等！
      数字最大10000，对应的度数是11*PI/9,那每个步长mum对应的度数如下：
@@ -82,6 +83,8 @@ canvas {
     var deg1 = mum * Math.PI * 11 / 9 / 10000; // 每mum对应的度数
     var angle = 0; //初始角度
     var credit = 0; //数字默认值开始数
+
+
 
     var drawFrame = function() {
       if(score < 0 || score > 10000) {
@@ -105,7 +108,18 @@ canvas {
           credit = 10000;
       }
 
-      //信用额度
+      // 绘制文本
+      drawText(credit);
+
+      // 绘画
+      drawRing();
+
+      window.requestAnimFrame(drawFrame);
+    }
+
+    // 文本
+    var drawText = function(process) {
+      // 类型
       ctx.save();
       ctx.rotate(10 * deg0);
       ctx.fillStyle = 'white';
@@ -113,30 +127,8 @@ canvas {
       ctx.textAlign = 'center';
       ctx.fillText(self.config.text, 0, 50);
       ctx.restore();
-      
-      drawText(credit);
 
-      ctx.save();
-      ctx.beginPath();
-      ctx.lineWidth = 5;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-      ctx.arc(0, 0, radius, 0, angle, false); //动画圆环
-      ctx.stroke();
-      ctx.restore();
-      ctx.save();
-      ctx.rotate(10 * deg0); //200度
-      ctx.restore();
-      ctx.beginPath();
-      ctx.strokeStyle = 'rgba(255, 0, 0, .1)';
-      ctx.lineWidth = 5;
-      ctx.arc(0, 0, radius, 0, 11 * deg0, false); //设置外圆环220度
-      ctx.stroke();
-      ctx.restore();
-
-      window.requestAnimFrame(drawFrame);
-    }
-
-    var drawText = function(process) {
+      // 额度
       ctx.save();
       ctx.rotate(10 * deg0); //200度
       ctx.fillStyle = 'red';
@@ -146,6 +138,27 @@ canvas {
       ctx.fillText("￥:" + process, 0, 10);
       ctx.restore();
     } 
+
+    // paint
+    var drawRing = function() {
+      ctx.save();
+      ctx.beginPath();
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
+      ctx.arc(0, 0, radius, 0, angle, false); //动画圆环
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.rotate(10 * deg0); //200度
+      ctx.restore();
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(255, 0, 0, .1)';
+      ctx.lineWidth = 5;
+      ctx.arc(0, 0, radius, 0, 11 * deg0, false); //设置外圆环220度
+      ctx.stroke();
+      ctx.restore();
+    }
 
     // 显示
     setTimeout(function() {
