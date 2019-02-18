@@ -27,61 +27,65 @@
   </main>
   <script src="static/vendors/jquery/jquery-3.3.1.min.js"></script>
   <script src="static/scripts/common.js"></script>
-  <script>/**
+ <script>
+
+/**
  * [滑动验证]
  */
-!(function SlideValidate() {
-  function SlideValidate(cfg) {
-    this.config = {
-      container: '.js-slide-box',
-      width: 260,
-      height: 116,
-      picture: [],
-      success: null,
-      error: null
-    }
+!function SlideValidate(){
 
-    this.config = $.extend(this.config, cfg)
+	function SlideValidate(cfg){
+		this.config = {
+			container: '.js-slide-box',
+			width : 260,
+			height : 116,
+			picture: [],
+			success: null,
+			error: null
+		};
 
-    this.container = $(this.config.container)
+		this.config = $.extend(this.config,cfg);
 
-    this.init()
+		this.container = $(this.config.container);
 
-    return this
-  }
+		this.init();
 
-  SlideValidate.prototype.init = function() {
-    var self = this
-    var w = self.config.width
-    var h = self.config.height
+		return this;
+	}
 
-    //定义拖动参数
+	SlideValidate.prototype.init = function() {
+		var self = this
+		var w = self.config.width;
+		var h = self.config.height;
 
-    var PL_Size = 48
-    var padding = 20
+		//定义拖动参数
 
-    var MinN_X = padding + PL_Size
-    var MinN_Y = h - padding - PL_Size - PL_Size / 6
-    var MaxN_X = w - padding - PL_Size - PL_Size / 6
-    var MaxN_Y = padding
+		var PL_Size = 48;
+		var padding = 20;
 
-    var imgRandom = self.randomNum(1, self.config.picture.length)
+		var MinN_X = padding + PL_Size; //68
+		var MinN_Y = padding; //20
+		
+		var MaxN_X = w - padding - PL_Size - PL_Size / 6; //184
+		var MaxN_Y = h - padding - PL_Size - PL_Size / 6; //40
 
-    var imgSrc = self.config.picture[imgRandom]
-    var X = self.randomNum(MinN_X, MaxN_X)
-    var Y = self.randomNum(MinN_Y, MaxN_Y)
-    var d = PL_Size / 3
-    var left = -X + 10
+		var imgRandom = self.randomNum(1, self.config.picture.length);
 
-    var html = `<div class="u-slide-picture-box">
+		console.log(imgRandom)
+
+		var imgSrc = self.config.picture[imgRandom];
+		var X = self.randomNum(MinN_X, MaxN_X);
+		var Y = self.randomNum(MinN_Y, MaxN_Y);
+		var d = PL_Size / 3;
+		var left = -X + 10;
+
+		var html = `<div class="u-slide-picture-box">
 									<div class="u-slide-picture" style="width:${w}px;">
-										<div>
-											<img src="${imgSrc}" />
-											<canvas id="puzzleBox" width="${w}" height="${h}" style="position:absolute;left:0;top:0;z-index:22;"></canvas>
-										</div>
-										<div class="puzzle-lost-box" style="position:absolute;width:${w}px;height:${h}px;top:0;left:${left}px;z-index:111;">
-											<canvas id="puzzleShadow" width="${w}" height="${h}" style="position:absolute;left:0;top:0;z-index:22;"></canvas>
-											<canvas id="puzzleLost" width="${w}" height="${h}" style="position:absolute;left:0;top:0;z-index:33;"></canvas>
+										<img src="${imgSrc}" />
+										<canvas class="u-slide-shape-opacity" id="js-slide-shape-opacity" width="${w}" height="${h}"></canvas>
+										<div class="u-slide-shape-box js-slide-shape-box" style="left:${left}px;">
+											<canvas class="u-slide-shape-shadow" id="js-slide-shape-shadow" width="${w}" height="${h}"></canvas>
+											<canvas class="u-slide-shape-lost" id="js-slide-shape-lost" width="${w}" height="${h}"></canvas>
 										</div>
 										<div class="u-slide-tips js-slide-tips">
 											<p hidden class="u-slide-tips-err"><b>验证失败:</b><span">拖动滑块将悬浮图像正确拼合</span></p>
@@ -95,266 +99,249 @@
 											<p class="u-slide-btn-text">按住左边滑块，拖动完成上方拼图</p>
 										</div>
 									<div class="u-slide-btn js-slide-btn"></div>
-								</div>`
-    self.container.html(html)
+								</div>`;
+		self.container.html(html);
 
-    //
-    self.paint(imgSrc, X, Y, d)
+		// paint
+		self.paint(imgSrc, X, Y, d);
 
-    var isDown = false //mousedown标记
-    var moveStart = null
-    if (document.attachEvent) {
-      //ie的事件监听，拖拽div时禁止选中内容，
-      //firefox与chrome已在css中设置过
-      //-moz-user-select: none; -webkit-user-select: none;
+
+		var isDown = false;
+		var moveStart = null;
+		if(document.attachEvent) {
+		//ie的事件监听，拖拽div时禁止选中内容，
+		//firefox与chrome已在css中设置过
+		//-moz-user-select: none; -webkit-user-select: none;
       self.el.attachEvent('onselectstart', function() {
-        return false
-      })
+          return false;
+      });
     }
 
-    // 鼠标按下
-    $('.js-slide-btn')
-      .unbind('mousedown')
-      .on('mousedown', function(e) {
-        e = e || window.event
-        isDown = true //鼠标拖拽启
-        $(this).addClass('move')
-        moveStart = e.pageX
-      })
+		// 鼠标按下
+		$('.js-slide-btn').unbind('mousedown').on('mousedown', function(e) {
+			e = e || window.event;
+			isDown = true;//鼠标拖拽启
+			$(this).addClass('move');
+			moveStart = e.pageX;
+		});
 
-    // 滑动事件
-    $('.js-slide-btn').mousemove(function(e) {
-      e = e || window.event
-      //鼠标滑动时的距离
-      var moveX = e.pageX
-      var d = moveX - moveStart
+		// 滑动事件
+		$('.js-slide-btn').mousemove(function(e) {
+			e = e || window.event;
+			//鼠标滑动时的距离
+			var moveX = e.pageX;
+			var d = moveX - moveStart;
 
-      if (isDown && moveStart !== '') {
-        if (d > 0 && d < w - padding - PL_Size) {
-          $(this).css({
-            left: d + 'px',
-            transition: 'inherit'
-          })
-          $('#puzzleLost').css({
-            left: d + 'px',
-            transition: 'inherit'
-          })
-          $('#puzzleShadow').css({
-            left: d + 'px',
-            transition: 'inherit'
-          })
-        }
-      }
-    })
+			if (isDown && moveStart !== '') {
+				if (d > 0 && d < (w - padding - PL_Size)) {
+					$(this).css({
+						'left': d + 'px',
+						'transition': 'inherit'
+					});
+					$('#js-slide-shape-lost').css({
+						'left': d + 'px',
+						'transition': 'inherit'
+					});
+					$('#js-slide-shape-shadow').css({
+						'left': d + 'px',
+						'transition': 'inherit'
+					});
+				}
+			}
+		});
 
-    // 鼠标松开
-    $('.js-slide-btn')
-      .unbind('mouseup')
-      .on('mouseup', function(e) {
-        e = e || window.event
-        var moveEnd_X = e.pageX - moveStart
-        var ver_Num = X - 10
-        var deviation = 4
-        var Min_left = ver_Num - deviation
-        var Max_left = ver_Num + deviation
+		// 鼠标松开
+    $('.js-slide-btn').unbind('mouseup').on('mouseup', function(e) {
+    	e = e || window.event;
+			var moveEnd_X = e.pageX - moveStart;
+			var ver_Num = X - 10;
+			var deviation = 4;
+			var Min_left = ver_Num - deviation;
+			var Max_left = ver_Num + deviation;
 
-        if (moveStart !== '') {
-          if (Max_left > moveEnd_X && moveEnd_X > Min_left) {
-            $('.js-slide-tips')
-              .addClass('on')
-              .find('.u-slide-tips-ok')
-              .prop('hidden', false)
+			if(moveStart !== '') {
+				if (Max_left > moveEnd_X && moveEnd_X > Min_left) {
 
-            $('.puzzle-lost-box').prop('hidden', true)
-            $('#puzzleBox').prop('hidden', true)
+					$('.js-slide-tips').addClass('on').find('.u-slide-tips-ok').prop('hidden',false);
 
-            setTimeout(function() {
-              $('.js-slide-tips')
-                .removeClass('on')
-                .find('.u-slide-tips-ok')
-                .prop('hidden', true)
-              self.init()
-            }, 2000)
+					$('.js-slide-shape-box').prop('hidden',true);
+					$('#js-slide-shape-opacity').prop('hidden',true);
 
-            if (
-              self.config.success &&
-              typeof self.config.success === 'function'
-            ) {
-              self.config.success()
-            }
-          } else {
-            $('.js-slide-tips')
-              .addClass('on')
-              .find('.u-slide-tips-err')
-              .prop('hidden', false)
+					setTimeout(function() {
+						$('.js-slide-tips').removeClass('on').find('.u-slide-tips-ok').prop('hidden',true);
+						self.init();
+					}, 2000);
 
-            setTimeout(function() {
-              $('.js-slide-tips')
-                .removeClass('on')
-                .find('.u-slide-tips-err')
-                .prop('hidden', true)
-            }, 2000)
-
-            if (self.config.error && typeof self.config.error === 'function') {
-              self.config.error()
-
-              setTimeout(function() {
-                $('.js-slide-btn').css({
-                  left: '0',
-                  transition: 'left 0.5s'
-                })
-                $('#puzzleLost').css({
-                  left: '0',
-                  transition: 'left 0.5s'
-                })
-                $('#puzzleShadow').css({
-                  left: '0',
-                  transition: 'left 0.5s'
-                })
-              }, 1000)
-            }
+					if (self.config.success && typeof self.config.success === 'function') {
+            self.config.success();
           }
-        }
 
-        $(this).removeClass('move')
-        moveStart = null
-        isDown = false
-      })
+				} else {
 
-    $('.js-slide-refresh').on('click', function() {
-      self.init()
-    })
-  }
+					$('.js-slide-tips').addClass('on').find('.u-slide-tips-err').prop('hidden',false);
 
-  SlideValidate.prototype.paint = function(imgSrc, X, Y, d) {
-    var self = this
-    var w = self.config.width
-    var h = self.config.height
+					setTimeout(function() {
+						$('.js-slide-tips').removeClass('on').find('.u-slide-tips-err').prop('hidden',true);;
+					}, 2000);
 
-    var c = document.getElementById('puzzleBox')
-    var ctx = c.getContext('2d')
+					if (self.config.error && typeof self.config.error === 'function') {
+            
+            self.config.error();
 
-    ctx.globalCompositeOperation = 'xor'
-    ctx.shadowBlur = 10
-    ctx.shadowColor = '#fff'
-    ctx.shadowOffsetX = 3
-    ctx.shadowOffsetY = 3
-    ctx.fillStyle = 'rgba(0,0,0,0.7)'
-    ctx.beginPath()
-    ctx.lineWidth = '1'
-    ctx.strokeStyle = 'rgba(0,0,0,0)'
-    ctx.moveTo(X, Y)
-    ctx.lineTo(X + d, Y)
-    ctx.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
-    ctx.lineTo(X + 3 * d, Y)
-    ctx.lineTo(X + 3 * d, Y + d)
-    ctx.bezierCurveTo(
-      X + 2 * d,
-      Y + d,
-      X + 2 * d,
-      Y + 2 * d,
-      X + 3 * d,
-      Y + 2 * d
-    )
-    ctx.lineTo(X + 3 * d, Y + 3 * d)
-    ctx.lineTo(X, Y + 3 * d)
-    ctx.closePath()
-    ctx.stroke()
-    ctx.fill()
+            setTimeout(function() {
+							$('.js-slide-btn').css({
+								'left': '0',
+								'transition': 'left 0.5s'
+							});
+							$('#js-slide-shape-lost').css({
+								'left': '0',
+								'transition': 'left 0.5s'
+							});
+							$('#js-slide-shape-shadow').css({
+								'left': '0',
+								'transition': 'left 0.5s'
+							});
+						}, 1000);
+          }
+				}
+			}
+			
+			$(this).removeClass('move');
+			moveStart = null;
+			isDown = false;
+    	
+		});
 
-    var c_l = document.getElementById('puzzleLost')
-    var c_s = document.getElementById('puzzleShadow')
-    var ctx_l = c_l.getContext('2d')
-    var ctx_s = c_s.getContext('2d')
+		$('.js-slide-refresh').on('click', function() {
+			self.init();
+		})
 
-    var img = new Image()
-    img.src = imgSrc
-    img.onload = function() {
-      ctx_l.drawImage(img, 0, 0, w, h)
-    }
+	}
 
-    ctx_l.beginPath()
-    ctx_l.strokeStyle = 'rgba(0,0,0,0)'
-    ctx_l.moveTo(X, Y)
-    ctx_l.lineTo(X + d, Y)
-    ctx_l.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
-    ctx_l.lineTo(X + 3 * d, Y)
-    ctx_l.lineTo(X + 3 * d, Y + d)
-    ctx_l.bezierCurveTo(
-      X + 2 * d,
-      Y + d,
-      X + 2 * d,
-      Y + 2 * d,
-      X + 3 * d,
-      Y + 2 * d
-    )
-    ctx_l.lineTo(X + 3 * d, Y + 3 * d)
-    ctx_l.lineTo(X, Y + 3 * d)
-    ctx_l.closePath()
-    ctx_l.stroke()
-    ctx_l.shadowBlur = 10
-    ctx_l.shadowColor = 'black'
-    ctx_l.clip()
-    ctx_s.beginPath()
-    ctx_s.lineWidth = '1'
-    ctx_s.strokeStyle = 'rgba(0,0,0,0)'
-    ctx_s.moveTo(X, Y)
-    ctx_s.lineTo(X + d, Y)
-    ctx_s.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y)
-    ctx_s.lineTo(X + 3 * d, Y)
-    ctx_s.lineTo(X + 3 * d, Y + d)
-    ctx_s.bezierCurveTo(
-      X + 2 * d,
-      Y + d,
-      X + 2 * d,
-      Y + 2 * d,
-      X + 3 * d,
-      Y + 2 * d
-    )
-    ctx_s.lineTo(X + 3 * d, Y + 3 * d)
-    ctx_s.lineTo(X, Y + 3 * d)
-    ctx_s.closePath()
-    ctx_s.stroke()
-    ctx_s.shadowBlur = 20
-    ctx_s.shadowColor = 'black'
-    ctx_s.fill()
-  }
+	// paint shape 
+	SlideValidate.prototype.paint = function(imgSrc, X, Y, d) {
 
-  SlideValidate.prototype.randomNum = function(Min, Max) {
-    var Range = Max - Min
-    var Rand = Math.random()
-    if (Math.round(Rand * Range) == 0) {
-      return Min + 1
-    } else if (Math.round(Rand * Max) == Max) {
-      return Max - 1
-    } else {
-      var num = Min + Math.round(Rand * Range) - 1
-      return num
-    }
-  }
+		var self = this
+		var w = self.config.width;
+		var h = self.config.height;
 
-  window.SlideValidate = SlideValidate
-})()
+		// 绘出凹陷区域,并且遮罩缺少图部分，降低透明度
+		var c = document.getElementById("js-slide-shape-opacity");
+		var ctx = c.getContext("2d");
+		ctx.globalCompositeOperation = "xor";
+
+		// 设置阴影
+		ctx.shadowBlur = 10;// 设置阴影模糊级数
+		ctx.shadowColor = "#fff";
+		ctx.shadowOffsetX = 3;
+		ctx.shadowOffsetY = 3;
+		ctx.fillStyle = "rgba(0,0,0,0.7)";
+
+		// 绘制
+		//console.log(X, Y, d) // 114,23,16
+		ctx.beginPath();
+		ctx.lineWidth = "1";
+		ctx.strokeStyle = "rgba(0,0,0,0)";
+		ctx.moveTo(X, Y); //起点(114,23)
+		ctx.lineTo(X + d, Y); //结束点/起点(130,23)
+		//贝塞尔区线（控制点1,控制点2,结束点)
+		ctx.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);//(130,7,146,7,146,23)
+		ctx.lineTo(X + 3 * d, Y);//(152,23)
+		ctx.lineTo(X + 3 * d, Y + d);//(152,39)
+		ctx.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);//(130,39,130,55,152,55)
+		ctx.lineTo(X + 3 * d, Y + 3 * d);//(152,71)
+		ctx.lineTo(X, Y + 3 * d);//(114,71)
+		ctx.closePath();
+		ctx.stroke();
+		ctx.fill();
+
+		// 裁剪出将被拖动填充的缺少图
+		var c_l = document.getElementById("js-slide-shape-lost");
+		var ctx_l = c_l.getContext("2d");
+		
+		var img = new Image();
+		img.src = imgSrc;
+		img.onload = function() {
+			ctx_l.drawImage(img, 0, 0, w, h);
+		}
+
+		ctx_l.shadowBlur = 10;
+		ctx_l.shadowColor = "black";
+
+		ctx_l.beginPath();
+		ctx_l.strokeStyle = "rgba(0,0,0,0)";
+		ctx_l.moveTo(X, Y);
+		ctx_l.lineTo(X + d, Y);
+		ctx_l.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);
+		ctx_l.lineTo(X + 3 * d, Y);
+		ctx_l.lineTo(X + 3 * d, Y + d);
+		ctx_l.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);
+		ctx_l.lineTo(X + 3 * d, Y + 3 * d);
+		ctx_l.lineTo(X, Y + 3 * d);
+		ctx_l.closePath();
+		ctx_l.stroke();
+		ctx_l.clip();
+
+		// 绘出裁剪图的阴影效果
+		var c_s = document.getElementById("js-slide-shape-shadow");
+		var ctx_s = c_s.getContext("2d");
+		ctx_s.shadowBlur = 20;
+		ctx_s.shadowColor = "black";
+		ctx_s.beginPath();
+		ctx_s.lineWidth = "1";
+		ctx_s.strokeStyle = "rgba(0,0,0,0)";
+		ctx_s.moveTo(X, Y);
+		ctx_s.lineTo(X + d, Y);
+		ctx_s.bezierCurveTo(X + d, Y - d, X + 2 * d, Y - d, X + 2 * d, Y);
+		ctx_s.lineTo(X + 3 * d, Y);
+		ctx_s.lineTo(X + 3 * d, Y + d);
+		ctx_s.bezierCurveTo(X + 2 * d, Y + d, X + 2 * d, Y + 2 * d, X + 3 * d, Y + 2 * d);
+		ctx_s.lineTo(X + 3 * d, Y + 3 * d);
+		ctx_s.lineTo(X, Y + 3 * d);
+		ctx_s.closePath();
+		ctx_s.stroke();
+		ctx_s.fill();
+	}
+
+	// 随机数
+	SlideValidate.prototype.randomNum = function(Min, Max) {
+		var Range = Max - Min;
+		var Rand = Math.random();
+		if (Math.round(Rand * Range) === 0) {
+			return 0;//Min + 1
+		} else if (Math.round(Rand * Max) == Max) {
+			return Max - 1;
+		} else {
+			var num = Min + Math.round(Rand * Range) - 1;
+			return num;
+		}
+	}
+
+	window.SlideValidate = SlideValidate;
+
+}();
+
 
 // 使用
 
 new SlideValidate({
-  container: '.js-slide-box',
-  width: 260,
-  height: 116,
-  picture: [
+	container: '.js-slide-box',
+	width : 260,
+	height : 116,
+	picture: [
     'static/images/slide/ver-1.png',
     'static/images/slide/ver-2.png',
     'static/images/slide/ver-3.png',
     'static/images/slide/ver-4.png'
   ],
-  success: function() {
-    alert('执行登录函数')
-  },
-  error: function() {
-    alert('错误什么都不执行')
-  }
+	success: function() {
+		alert('执行登录函数');
+	},
+	error: function() {
+		alert('错误什么都不执行')
+	}
 })
+
 </script>
 </body>
 </html>
