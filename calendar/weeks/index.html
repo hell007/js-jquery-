@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="google" value="notranslate" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="" />
+    <meta name="msapplication-navbutton-color" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover"
+    />
+    <meta
+      name="format-detection"
+      content="telephone=no,email=no,address=no,date=no"
+    />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- prettier-ignore -->
+    <script>!function(e,t){"use strict";function n(){t.style.fontSize=Math.min(t.getBoundingClientRect().width,720)/320*16+"px"}n(),e.addEventListener("resize",n,!1),e.addEventListener("pageshow",function(e){e.persisted&&n()})}(window,document.documentElement);</script>
+    <title>餐厅</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      href="assets/styles/common.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/styles/hotel.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-main">
+        <div class="page-scroller">
+          <section class="hotel-date">
+            <div class="hotel-date-weeks">
+              <span>日</span>
+              <span>一</span>
+              <span>二</span>
+              <span>三</span>
+              <span>四</span>
+              <span>五</span>
+              <span>六</span>
+            </div>
+            <ul class="hotel-date-calendar js-hotel-calendar"></ul>
+          </section>
+
+          <section class="hotel-food">
+            <h5 class="hotel-food-title">早餐</h5>
+            <ul class="hotel-food-list">
+              <li>土豆炖牛肉6.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>土豆炖牛肉6.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>腐乳肉5.0元</li>
+            </ul>
+
+            <h5 class="hotel-food-title">午餐</h5>
+            <div class="hotel-food-ads">
+              <img
+                src="project/images/pic2.png"
+              />
+            </div>
+
+            <h5 class="hotel-food-title">晚餐</h5>
+            <ul class="hotel-food-list">
+              <li>土豆炖牛肉6.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>土豆炖牛肉6.0元</li>
+              <li>腐乳肉5.0元</li>
+              <li>腐乳肉5.0元</li>
+            </ul>
+          </section>
+
+          <section class="hotel-shop">
+            <div class="hotel-shop-detail">
+              <span class="d-pic">
+                <img
+                  src="project/images/pic3.png"
+                />
+              </span>
+              <div class="d-name">
+                <b>每日优鲜（神策门店）</b>
+                <p>地址：太平庄167号太平庄167号太平庄167号太平庄167号</p>
+              </div>
+            </div>
+            <span class="hotel-shop-call js-tell">call</span>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="project/scripts/config.js"></script>
+    <script src="assets/vendors/jquery/3.3.1/dist/jquery.min.js"></script>
+    <script src="assets/scripts/common.js"></script>
+    <script src="assets/scripts/calendar.js"></script>
+    <script>
+      ;(function(window) {
+        'use strict'
+
+        // hotel
+        var _ = window.hotel || (window.hotel = {})
+        var $ = window.jQuery
+        var utils = window.utils
+        var calendar = window.calendar
+
+        // call me
+        function callme() {
+          $('.js-tell').on('click', function() {
+            utils.message({
+              title: '预定电话',
+              html:
+                '<p><a href="tel:0371-12345678">0371 - 12345678</a></p><a href="tel:13888888880">12345678911</a>',
+              btns: [
+                utils.message.cancel('取消', function() {
+                  return
+                })
+              ]
+            })
+          })
+        }
+
+        // render weekdays
+        function initWeeks() {
+          var today = 0
+          var tdate = calendar.getDay(today)
+          var obj = calendar.solar2lunar(tdate.year, tdate.month, tdate.day)
+          var m = null
+          var n = null
+          var arr = []
+          var tpl = ''
+
+          switch (obj.nWeek) {
+            case 1:
+              m = 2
+              n = 5
+              creatArr(m, n)
+              break
+            case 2:
+              m = 3
+              n = 4
+              creatArr(m, n)
+              break
+            case 3:
+              m = 4
+              n = 3
+              creatArr(m, n)
+              break
+            case 4:
+              m = 5
+              n = 2
+              creatArr(m, n)
+              break
+            case 5:
+              m = 6
+              n = 1
+              creatArr(m, n)
+              break
+            case 6:
+              m = 7
+              n = 0
+              creatArr(m, n)
+              break
+            case 7:
+              m = 1
+              n = 6
+              creatArr(m, n)
+              break
+          }
+
+          // console.log('arr==',arr)
+
+          for (var i = 0, len = arr.length; i < len; i++) {
+            tpl +=
+              '<li class="' +
+              (obj.cDay == arr[i].cday ? 'on' : '') +
+              '">\
+            <span>\
+              <b>' +
+              arr[i].cday +
+              '</b>\
+              <em>' +
+              arr[i].IDayCn +
+              '</em>\
+            </span>\
+          </li>'
+          }
+
+          $('.js-hotel-calendar').html(tpl)
+
+          function creatArr(m, n) {
+            var ntoday = today
+
+            for (var i = 0; i < m; i++) {
+              var tm = calendar.getDay(today--)
+              var objm = calendar.solar2lunar(tm.year, tm.month, tm.day)
+              var item = {}
+              item.cday = objm.cDay
+              item.IDayCn = objm.IDayCn
+              item.ncWeek = objm.ncWeek
+              arr.unshift(item)
+            }
+
+            for (var j = 1; j <= n; j++) {
+              var tn = calendar.getDay(++ntoday)
+              var objn = calendar.solar2lunar(tn.year, tn.month, tn.day)
+              var item = {}
+              item.cday = objn.cDay
+              item.IDayCn = objn.IDayCn
+              item.ncWeek = objn.ncWeek
+              arr.push(item)
+            }
+          }
+        }
+
+        // other
+
+        // extend
+        $.extend(_, {
+          callme: callme,
+          initWeeks: initWeeks
+        })
+      })(this.self)
+
+      $(function() {
+        hotel.callme()
+        hotel.initWeeks()
+      })
+    </script>
+  </body>
+</html>
