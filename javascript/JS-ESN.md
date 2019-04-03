@@ -256,17 +256,17 @@ ES6后，解构能让我们从对象或者数组里取出数据存为变量
 
 - 数组的扩展运算符
 
-a.组装数组
+    a.组装数组
 
-    let color = ['red', 'yellow'];
-    let colorful = [...color, 'green', 'blue'];
-    console.log(colorful); // ["red", "yellow", "green", "blue"]
+        let color = ['red', 'yellow'];
+        let colorful = [...color, 'green', 'blue'];
+        console.log(colorful); // ["red", "yellow", "green", "blue"]
     
-b.获取数组除了某几项的其他项
+    b.获取数组除了某几项的其他项
 
-    let num = [1, 3, 5, 7, 9];
-    let [first, second, ...arg] = num;
-    console.log(arg); // [5, 7, 9]
+        let num = [1, 3, 5, 7, 9];
+        let [first, second, ...arg] = num;
+        console.log(arg); // [5, 7, 9]
 
 9.对象
 
