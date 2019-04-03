@@ -51,5 +51,7 @@
 
 [Jimp 是一个使用 JavaScript 编写的用于 Node 的图像处理库](https://github.com/oliver-moran/jimp)
 
+[formidable图片上传](https://github.com/felixge/node-formidable)
+
 
 
