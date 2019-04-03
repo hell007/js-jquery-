@@ -167,12 +167,21 @@
 通过上面fetch的使用方式，可以看出他和Promise的使用方式非常相像，fetch其实返回的就是一个Promise对象，async，await也就和fetch是完美兼容了，我们可以使用async，await实现代码的同步
 
 	(async()=>{
+		let result = {
+			success: false,
+			data: null,
+			message: ''
+		};
 		 try{
-		 	let res = await fetch(url, {mode: 'no-cors'});
+			result.data = await fetch(url, {mode: 'no-cors'});
 			//等待fetch被resolve()后才能继续执行
-		 	console.log(res);
-		 }catch(e){
-		 	console.log(e);
+			result.sucess = true;
+			console.log(result);
+		 }catch(ex){
+		 	result.data = ex;
+			console.log(ex);
+		 }finally {
+		 	console.log(result);
 		 }
 	})();
 
