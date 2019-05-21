@@ -132,3 +132,15 @@
     
     filter()不会改变原始数组
     
+ES6为Array增加了find()，findIndex函数
+
+- find 函数用来查找目标元素，找到就返回该元素，找不到返回undefined。
+
+- findIndex 函数也是查找目标元素，找到就返回元素的位置，找不到就返回-1。
+
+            [1, 2, 3, 4].find((value, index, arr) => {
+
+            })
+
+  
+    
