@@ -103,6 +103,57 @@ ctx.drawImage(img,10,10);
 //			var dataURL = canvas.toDataURL("image/png", 0.8);
 //			return dataURL.replace("data:image/png;base64,", "");
 //		}
+
+	
+// <h2>9.base64 upload</h2>
+// <input class="js-base64-file" type="file"  />
+// <canvas id="canvas"></canvas>
+// <br/>
+// <button class="js-base64-btn">上传</button>
+	
+function upload(input, w, h) {
+  var file = document.querySelector(input).files[0] // 获取选择的文件，这里是图片类型
+  var fileType = file.type
+  var fileName = file.name
+  var fileSize = file.size
+
+  console.log('files=',fileType, fileName, fileSize)
+
+  var reader = new FileReader()
+  reader.readAsDataURL(file) //读取文件并将文件以URL的形式保存在resulr属性中 base64格式
+
+  reader.onload = function(e) { // 文件读取完成时触发
+    var result = e.target.result // base64格式图片地址
+
+    var image = new Image()
+    image.src = result // 设置image的地址为base64的地址
+    image.onload = function(){
+      var canvas = document.querySelector("#canvas");
+      var ctx = canvas.getContext("2d");
+      var width = image.width;
+      var height = image.height;
+      w = w || 100;
+      h = h || 100;
+      // calculate the width and height, constraining the proportions
+      if (width > height) {
+        if (width > w) {
+          height = Math.round(height *= h / width);
+          width = w;
+        }
+      } else {
+        if (height > h) {
+          width = Math.round(width *= w / height);
+          height = h;
+        }
+      }
+      canvas.width = width;   /*设置新的图片的宽度*/
+      canvas.height = height; /*设置新的图片的长度*/
+      ctx.drawImage(image, 0, 0, width, height); /*绘图*/
+      dataUrl = canvas.toDataURL(fileType, 0.92) // 0.92为压缩比，可根据需要设置，设置过小会影响图片质量
+      // dataUrl 为压缩后的图片资源，可将其上传到服务器
+      //console.log('dataUrl==',dataUrl)
+    }
+  }
 </script>
 </body>
 </html>
