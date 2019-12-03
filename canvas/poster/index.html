@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="google" value="notranslate" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="" />
+    <meta name="msapplication-navbutton-color" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover"
+    />
+    <meta
+      name="format-detection"
+      content="telephone=no,email=no,address=no,date=no"
+    />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- prettier-ignore -->
+    <script>!function(e,t){"use strict";function n(){t.style.fontSize=Math.min(t.getBoundingClientRect().width,720)/320*16+"px"}n(),e.addEventListener("resize",n,!1),e.addEventListener("pageshow",function(e){e.persisted&&n()})}(window,document.documentElement);</script>
+    <title>canvas海报</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      href="assets/styles/common.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/styles/poster-canvas.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <header class="header">
+          <div class="header-left">
+            <a href="###" class="header-btn header-btn-back">
+              返回
+            </a>
+          </div>
+          <div class="header-title">
+            canvas海报
+          </div>
+        </header>
+      </div>
+
+      <div class="page-main">
+        <div class="page-scroller">
+          <button
+            id="js-submit"
+            class="btn btn-block btn-primary btn-pill"
+            type="button"
+          >
+            分享海报
+          </button>
+          <br />
+        </div>
+      </div>
+    </div>
+
+    <!--海报图片-->
+    <div class="dialog dialog-center" id="js-dialog-poster">
+      <div class="dialog-main">
+        <button hidden type="button" class="dialog-close poster-close js-close">
+          关闭
+        </button>
+        <div class="poster-panel">
+          <div class="swiper-container posters" id="js-posters"></div>
+        </div>
+        <p class="poster-tips">保存到手机相册后，将图片分享到您的朋友圈</p>
+        <div class="poster-submit" id="js-poster-save-btn">保存图片</div>
+      </div>
+    </div>
+
+    <script src="assets/vendors/swiper/4.3.5/dist/js/swiper.min.js"></script>
+    <script src="assets/vendors/jquery/3.3.1/dist/jquery.min.js"></script>
+    <script src="assets/scripts/common.js"></script>
+    <script src="assets/vendors/jquery.qrcode/1.0.3/jquery.qrcode.min.js"></script>
+    <script src="assets/scripts/poster2.js"></script>
+
+    <script>
+      var posters = [
+        {
+          bg: './assets/images/poster/poster1-bg.png',
+          product: {
+            name: '15元视频流量权益包',
+            desc: '这是一段产品描述这是一段产品描述这是一段产品描述',
+            price: '1029.00元/月',
+            img: './assets/images/poster/pic1.png'
+          },
+          app: {
+            logo: './assets/images/poster/header.png',
+            name: '云南移动全球通分公司',
+            qrcode: window.location.href,
+            tip: '扫描办理☞'
+          }
+        },
+        {
+          bg: './assets/images/poster/poster1-bg.png',
+          product: {
+            name: '15元视频流量权益包',
+            desc: '这是一段产品描述这是一段产品描述这是一段产品描述',
+            price: '1029.00元/月',
+            img: './assets/images/poster/poster1-picture.png'
+          },
+          app: {
+            logo: './assets/images/poster/header.png',
+            name: '销售公司',
+            qrcode: window.location.href,
+            tip: '扫描办理☞'
+          }
+        }
+      ]
+
+      // 海报
+      // 图片文字同时有问题
+      ;(function(posters) {
+        var container = $('#js-posters')
+        var dialog = utils.dialog('#js-dialog-poster')
+
+        var button = $('#js-poster-save-btn')
+        var buttonText = $('#js-poster-save-btn-label')
+        var buttonImg = $('#js-poster-save-btn-img')
+        var actions = $('#js-poster-actions')
+
+        var PAGE_CLASS = 'u-slide__page'
+        var PAGE_CLASS_CURRENT = 'u-slide__page--current'
+        var LIST_CLASS = 'u-slide__list'
+        var ITEM_CLASS = 'u-slide__item'
+        var list = $('<ul class="u-slide__list">').appendTo(container)
+        var pagination = $(
+          '<div class="u-slide__pagination posters__pagination">'
+        ).appendTo(container)
+        var index = 0
+        var renders = []
+        var isWechat = /MicroMessenger/.test(window.navigator.userAgent)
+        var supportDownload =
+          'download' in document.createElement('a') && !isWechat
+        var swiperInited = false
+
+        setTimeout(function() {
+          $.each(posters, function(index, item) {
+            var item = $('<li class="posters__item u-slide__item">').appendTo(
+              list
+            )
+            var card = $('<div class="posters__pic">').appendTo(item)
+            var canvas = $('<canvas class="posters__img">').appendTo(card)
+
+            renders.push(new Poster(canvas, posters[index]))
+          })
+
+          var swiper = new Swiper(container[0], {
+            init: false,
+            setWrapperSize: false,
+            autoplay: false,
+            pagination: {
+              el: pagination[0],
+              type: 'bullets',
+              bulletElement: 'button',
+              clickable: true,
+              bulletClass: (PAGE_CLASS = 'u-slide__page'),
+              bulletActiveClass: PAGE_CLASS_CURRENT
+            },
+            wrapperClass: LIST_CLASS,
+            slideClass: ITEM_CLASS
+          })
+
+          swiper.on('init slideChange', function() {
+            index = this.realIndex
+            console.log(index)
+            var render = renders[index]
+            if (!render.url) {
+              button.prop('disabled', true)
+            }
+            buttonImg.empty()
+            render.render().then(
+              function() {
+                if (!supportDownload) {
+                  buttonImg.html(
+                    '<img class="wechat-longpress-btn__img" src="' +
+                      render.url +
+                      '">'
+                  )
+                }
+                button.prop('disabled', false)
+              },
+              function(e) {
+                console.log(e)
+                utils.toast('网络错误，名片可能无法保存。')
+              }
+            )
+          })
+
+          button.on('click', function() {
+            alert(supportDownload)
+            if (supportDownload) {
+              renders[index].download()
+            }
+          })
+
+          if (!supportDownload) {
+            buttonText.text('长按保存海报')
+          }
+
+          $('#js-submit').on('click', function() {
+            dialog.show()
+            if (!swiperInited) {
+              swiper.init()
+              swiperInited = true
+            } else {
+              swiper.update()
+            }
+          })
+        }, 2000)
+      })(posters)
+    </script>
+  </body>
+</html>
