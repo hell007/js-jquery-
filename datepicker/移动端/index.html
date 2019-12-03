@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="google" value="notranslate" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="" />
+    <meta name="msapplication-navbutton-color" content="" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover"
+    />
+    <meta
+      name="format-detection"
+      content="telephone=no,email=no,address=no,date=no"
+    />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- prettier-ignore -->
+    <script>!function(e,t){"use strict";function n(){t.style.fontSize=Math.min(t.getBoundingClientRect().width,720)/320*16+"px"}n(),e.addEventListener("resize",n,!1),e.addEventListener("pageshow",function(e){e.persisted&&n()})}(window,document.documentElement);</script>
+    <title>日期选择器</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link
+      href="assets/styles/common.css"
+      rel="stylesheet"
+    />
+    <link
+      href="assets/vendors/picker/datepicker.css"
+      rel="stylesheet"
+    />
+    <style>
+      .demo {
+        margin-bottom: 30px;
+      }
+      .input {
+        border: 1px solid #ddd;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        -webkit-border-radius: 4px;
+        border-radius: 4px;
+        background: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="page-header">
+        <header class="header">
+          <div class="header-left">
+            <a href="###" class="header-btn header-btn-back">
+              返回
+            </a>
+          </div>
+          <div class="header-title">
+            日期选择器
+          </div>
+        </header>
+      </div>
+      <div class="page-main">
+        <div class="page-scroller" style="padding:20px;">
+          <div class="demo" id="demo1">
+            <input
+              class="input"
+              id="demo1-input"
+              type="text"
+              readonly
+              placeholder="日期"
+              data-lcalendar="2016-05-11,2016-05-11"
+            />
+          </div>
+
+          <div class="demo" id="demo2">
+            <input
+              class="input"
+              id="demo2-input"
+              type="text"
+              readonly
+              placeholder="日期时间"
+              data-lcalendar="2016-05-11,2016-05-11"
+            />
+          </div>
+
+          <div class="demo" id="demo3">
+            <input
+              class="input"
+              id="demo3-input"
+              type="text"
+              readonly
+              placeholder="时间"
+            />
+          </div>
+
+          <div class="demo" id="demo4">
+            <input
+              class="input"
+              id="demo4-input"
+              type="text"
+              readonly
+              placeholder="年月"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="assets/vendors/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script src="assets/scripts/common.js"></script>
+    <script src="assets/vendors/picker/datepicker.min.js"></script>
+    <script>
+      var date = new DatePicker()
+      date.init({
+        trigger: '#demo1', //标签id
+        input: '#demo1-input', //显示值的input的id  解决移动点击input触发弹出软键盘
+        type: 'date', //date 调出日期选择 datetime 调出日期时间选择 time 调出时间选择 ym 调出年月选择,
+        minDate: '1900-1-1', //最小日期
+        maxDate:
+          new Date().getFullYear() +
+          '-' +
+          (new Date().getMonth() + 1) +
+          '-' +
+          new Date().getDate() //最大日期
+      })
+
+      var datetime = new DatePicker()
+      datetime.init({
+        trigger: '#demo2',
+        input: '#demo2-input',
+        type: 'datetime',
+        minDate: '2018-1-1',
+        maxDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
+      })
+
+      var time = new DatePicker()
+      time.init({
+        trigger: '#demo3',
+        input: '#demo3-input',
+        type: 'time'
+      })
+
+      var month = new DatePicker()
+      month.init({
+        trigger: '#demo4',
+        input: '#demo4-input',
+        type: 'ym',
+        minDate: '1900-1',
+        maxDate: new Date().getFullYear() + '-' + (new Date().getMonth() + 1)
+      })
+    </script>
+  </body>
+</html>
