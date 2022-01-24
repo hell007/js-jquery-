@@ -1,1 +1,104 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>flv.js</title>
+  <style>
+    /* 所有控件 */
+video::-webkit-media-controls-enclosure {
+  display: none;
+}
+/* 进度条 */
+video::-webkit-media-controls-timeline {
+  display: none;
+}
+video::-webkit-media-controls-current-time-display {
+  display: none;
+}
+/* 音量按钮 */
+video::-webkit-media-controls-mute-button {
+  display: none;
+}
+video::-webkit-media-controls-toggle-closed-captions-button {
+  display: none;
+}
+/* 音量的控制条 */
+video::-webkit-media-controls-volume-slider {
+  display: none;
+}
+/*  播放按钮 */
+video::-webkit-media-controls-play-button {
+  display: none;
+}
+  </style>
+</head>
+
+<body>
+  <section class="carousel">
+  </section>
+</body>
+
+
+<script>
+ import flvjs from 'flv.js'
+if (flvjs.isSupported()) {
+  var videoEl = document.getElementById('videoEl')
+  var flvPlayer = flvjs.createPlayer({
+    type: 'flv',
+    url: 'http://test.stream.com/fetch-media.flv'
+  })
+  flvPlayer.attachMediaElement(videoEl)
+  flvPlayer.load()
+  flvPlayer.play()
+}
+  
+// 监听错误事件
+flvPlayer.on(flvjs.Events.ERROR, (err, errdet) => {
+  // 参数 err 是一级异常，errdet 是二级异常
+  if (err == flvjs.ErrorTypes.MEDIA_ERROR) {
+    console.log('媒体错误')
+    if(errdet == flvjs.ErrorDetails.MEDIA_FORMAT_UNSUPPORTED) {
+      console.log('媒体格式不支持')
+    }
+  }
+  if (err == flvjs.ErrorTypes.NETWORK_ERROR) {
+    console.log('网络错误')
+    if(errdet == flvjs.ErrorDetails.NETWORK_STATUS_CODE_INVALID) {
+      console.log('http状态码异常')
+    }
+  }
+  if(err == flvjs.ErrorTypes.OTHER_ERROR) {
+    console.log('其他异常：', errdet)
+  }
+}
+
+ const onClick = isplay => {
+  // 参数 isplay 表示当前是否正在播放
+  if (isplay) {
+    // 在播放，断流
+    player.unload()
+    player.detachMediaElement()
+  } else {
+    // 已断流，重新拉流播放
+    player.attachMediaElement(videoEl.current)
+    player.load()
+    player.play()
+  }
+}
+ 
+ const fullPage = () => {
+  let dom = document.querySelector('.video')
+  if (dom.requestFullscreen) {
+    dom.requestFullscreen()
+  } else if (dom.webkitRequestFullScreen) {
+    dom.webkitRequestFullScreen()
+  }
+}
+ 
+
+</script>
+</html>
